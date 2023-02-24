@@ -11,12 +11,14 @@ typealias EntryPoint = AnyHomeView & UIViewController
 
 protocol AnyHomeRouter: AnyObject {
     var view: EntryPoint? { get set }
+    var homeView: HomeView? { get set }
     
     static func start() -> AnyHomeRouter
 }
 
 class HomeRouter: AnyHomeRouter {
-    var view: EntryPoint?
+    weak var view: EntryPoint?
+    var homeView: HomeView?
     
     static func start() -> AnyHomeRouter {
         let router: AnyHomeRouter = HomeRouter()
@@ -33,7 +35,10 @@ class HomeRouter: AnyHomeRouter {
         presenter.router = router
         presenter.view = view
         
-        router.view = view as? HomeView
+        router.view = view as? EntryPoint
+        router.homeView = view as? HomeView
+        
+        presenter.view = router.homeView
         
         return router
     }
