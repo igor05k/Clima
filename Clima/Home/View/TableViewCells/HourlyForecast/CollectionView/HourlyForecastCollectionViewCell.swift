@@ -26,7 +26,11 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell {
     
     func setupCell(label: String, icon: String, tempLabel: String) {
         timeLabel.text = label
-        weatherIconImageView.image = UIImage(named: icon)
+        
+        if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
+            weatherIconImageView.downloadImage(from: url)
+        }
+        
         temperatureLabel.text = tempLabel
     }
 }

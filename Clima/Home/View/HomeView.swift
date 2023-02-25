@@ -10,13 +10,17 @@ import UIKit
 protocol AnyHomeView: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     
-    func updateView(with weatherInfo: HomeEntity)
+    func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity)
+    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity)
 }
 
 class HomeView: UIViewController, AnyHomeView {
     var presenter: AnyHomePresenter?
     
-    private var weatherInfo: [HomeEntity] = []
+    private var weatherInfo: CurrentWeatherEntity?
+    private var hourlyForecastInfo: HourlyForecastEntity?
+    
+//    private var testWeatherObjectInfo: CurrentWeatherEntity?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -116,9 +120,10 @@ class HomeView: UIViewController, AnyHomeView {
         tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
     }
     
-    func updateView(with weatherInfo: HomeEntity) {
+    func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity) {
         DispatchQueue.main.async { [weak self] in
-            self?.weatherInfo = [weatherInfo]
+            self?.weatherInfo = weatherInfo
+            
             let temp = self?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
             
             let desc = weatherInfo.weather?[0].description?.capitalized
@@ -131,9 +136,13 @@ class HomeView: UIViewController, AnyHomeView {
             self?.tempDescription.text = desc ?? "No description"
             self?.cityName.text = weatherInfo.name ?? "No city found"
             self?.temperatureLabel.text = String(temp ?? 0).prefix(1) + "°"
-            
-            // TODO
-            // self?.tableView.reloadData()
+        }
+    }
+    
+    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity) {
+        DispatchQueue.main.async { [weak self] in
+            self?.hourlyForecastInfo = weatherInfo
+            self?.tableView.reloadData()
         }
     }
     
@@ -143,6 +152,10 @@ class HomeView: UIViewController, AnyHomeView {
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell()}
+        
+        if let hourlyForecastInfo {
+            cell.configureElements(model: hourlyForecastInfo)
+        }
         
         return cell
     }

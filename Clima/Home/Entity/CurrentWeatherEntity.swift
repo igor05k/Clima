@@ -10,7 +10,7 @@ import Foundation
 import Foundation
 
 // MARK: - HomeEntity
-struct HomeEntity: Codable {
+struct CurrentWeatherEntity: Codable {
     let base: String?
     let clouds: Clouds?
     let cod: Int?
