@@ -10,15 +10,26 @@ import UIKit
 protocol AnyHomeView: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     
-    func updateView(with users: HomeEntity)
+    func updateView(with weatherInfo: HomeEntity)
 }
-
-// icons: http://openweathermap.org/img/w/10d.png
 
 class HomeView: UIViewController, AnyHomeView {
     var presenter: AnyHomePresenter?
     
-    private var users: [HomeEntity] = []
+    private var weatherInfo: [HomeEntity] = []
+    
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .backgroundColor
+
+        configCityLbl()
+        configTempStackView()
+        configTempDescription()
+        configMinMaxStackView()
+        configTableView()
+        configTableViewConstraints()
+    }
     
     lazy var tableView: UITableView = {
         let table = UITableView()
@@ -31,7 +42,7 @@ class HomeView: UIViewController, AnyHomeView {
         city.text = "São Paulo"
         city.textAlignment = .center
         city.numberOfLines = 1
-        city.font = .systemFont(ofSize: 22, weight: .bold)
+        city.font = .systemFont(ofSize: 20, weight: .bold)
         city.translatesAutoresizingMaskIntoConstraints = false
         return city
     }()
@@ -69,75 +80,56 @@ class HomeView: UIViewController, AnyHomeView {
         desc.text = "Scattered rain"
         desc.textAlignment = .center
         desc.numberOfLines = 1
-        desc.font = .systemFont(ofSize: 22, weight: .medium)
+        desc.font = .systemFont(ofSize: 20, weight: .medium)
         desc.translatesAutoresizingMaskIntoConstraints = false
         return desc
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-
-        configCityLbl()
-        configTempStackView()
-        configTempDescription()
-        //        configTableView()
-    }
+    lazy var minMaxStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fillEqually
+        stack.spacing = 10
+        return stack
+    }()
+    
+    lazy var minTemperature: UILabel = {
+        let minTemp = UILabel()
+        minTemp.text = "20°"
+        minTemp.translatesAutoresizingMaskIntoConstraints = false
+        return minTemp
+    }()
+    
+    lazy var maxTemperature: UILabel = {
+        let maxTemp = UILabel()
+        maxTemp.text = "29°"
+        maxTemp.translatesAutoresizingMaskIntoConstraints = false
+        return maxTemp
+    }()
     
     private func configTableView() {
-        view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .none
+        tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
     }
     
-    private func configCityLbl() {
-        view.addSubview(cityName)
-        
-        NSLayoutConstraint.activate([
-            cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            cityName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            cityName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-        ])
-    }
-    
-    private func configTempStackView() {
-        view.addSubview(tempStackView)
-        tempStackView.addArrangedSubview(temperatureIcon)
-        tempStackView.addArrangedSubview(temperatureLabel)
-        
-        NSLayoutConstraint.activate([
-            tempStackView.topAnchor.constraint(equalTo: cityName.bottomAnchor, constant: 10),
-            tempStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tempStackView.widthAnchor.constraint(equalToConstant: 150),
-            tempStackView.heightAnchor.constraint(equalToConstant: 120)
-        ])
-    }
-    
-    private func configTempDescription() {
-        view.addSubview(tempDescription)
-        
-        NSLayoutConstraint.activate([
-            tempDescription.topAnchor.constraint(equalTo: tempStackView.bottomAnchor, constant: 10),
-            tempDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            tempDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-        ])
-    }
-    
-    func updateView(with users: HomeEntity) {
+    func updateView(with weatherInfo: HomeEntity) {
         DispatchQueue.main.async { [weak self] in
-            self?.users = [users]
-            let temp = self?.kelvinToCelsius(users.main?.temp ?? 0)
+            self?.weatherInfo = [weatherInfo]
+            let temp = self?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
             
-            let desc = users.weather?[0].description?.capitalized
-            let icon = users.weather?[0].icon
+            let desc = weatherInfo.weather?[0].description?.capitalized
+            let icon = weatherInfo.weather?[0].icon
             
             if let url = URL(string: "http://openweathermap.org/img/w/\(icon ?? "").png") {
                 self?.temperatureIcon.downloadImage(from: url)
             }
             
             self?.tempDescription.text = desc ?? "No description"
-            self?.cityName.text = users.name ?? "No city found"
+            self?.cityName.text = weatherInfo.name ?? "No city found"
             self?.temperatureLabel.text = String(temp ?? 0).prefix(1) + "°"
             
             // TODO
@@ -150,27 +142,14 @@ class HomeView: UIViewController, AnyHomeView {
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let temp = kelvinToCelsius(users[indexPath.row].main?.temp ?? 0)
-        cell.textLabel?.text = String(temp)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell()}
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return 1
     }
-}
-
-extension UIImageView {
-    func downloadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let data = data else {
-                print("Error downloading image: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            DispatchQueue.main.async {
-                self.image = UIImage(data: data)
-            }
-        }.resume()
-    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 150 }
 }

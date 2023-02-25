@@ -37,7 +37,7 @@ class HomePresenter: AnyHomePresenter {
     
     var interactor: AnyHomeInteractor? {
         didSet {
-            interactor?.fetchUserLocation()
+//            interactor?.fetchUserLocation()
         }
     }
     

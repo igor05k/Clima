@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8242A29029AA43C0000CF4F8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */; };
+		8242A29229AA488B000CF4F8 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29129AA488B000CF4F8 /* UIColor+.swift */; };
+		8242A29429AA4D64000CF4F8 /* HomeConstraints+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */; };
+		8242A29929AA504E000CF4F8 /* HourlyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29729AA504E000CF4F8 /* HourlyForecastTableViewCell.swift */; };
+		8242A29A29AA504E000CF4F8 /* HourlyForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8242A29829AA504E000CF4F8 /* HourlyForecastTableViewCell.xib */; };
+		8242A29E29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29C29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift */; };
+		8242A29F29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8242A29D29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.xib */; };
 		82AE2C3429A833E8005FC00A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE2C3329A833E8005FC00A /* AppDelegate.swift */; };
 		82AE2C3629A833E8005FC00A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE2C3529A833E8005FC00A /* SceneDelegate.swift */; };
 		82AE2C3D29A833EB005FC00A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82AE2C3C29A833EB005FC00A /* Assets.xcassets */; };
@@ -19,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		8242A29129AA488B000CF4F8 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeConstraints+.swift"; sourceTree = "<group>"; };
+		8242A29729AA504E000CF4F8 /* HourlyForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTableViewCell.swift; sourceTree = "<group>"; };
+		8242A29829AA504E000CF4F8 /* HourlyForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyForecastTableViewCell.xib; sourceTree = "<group>"; };
+		8242A29C29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		8242A29D29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyForecastCollectionViewCell.xib; sourceTree = "<group>"; };
 		82AE2C3029A833E8005FC00A /* Clima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clima.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AE2C3329A833E8005FC00A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AE2C3529A833E8005FC00A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +57,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8242A28E29AA435E000CF4F8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */,
+				8242A29129AA488B000CF4F8 /* UIColor+.swift */,
+			);
+			name = Extensions;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		8242A29529AA5029000CF4F8 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				8242A29629AA503E000CF4F8 /* HourlyForecast */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		8242A29629AA503E000CF4F8 /* HourlyForecast */ = {
+			isa = PBXGroup;
+			children = (
+				8242A29B29AA508B000CF4F8 /* CollectionView */,
+				8242A29729AA504E000CF4F8 /* HourlyForecastTableViewCell.swift */,
+				8242A29829AA504E000CF4F8 /* HourlyForecastTableViewCell.xib */,
+			);
+			path = HourlyForecast;
+			sourceTree = "<group>";
+		};
+		8242A29B29AA508B000CF4F8 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				8242A29C29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift */,
+				8242A29D29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.xib */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		82AE2C2729A833E7005FC00A = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +113,7 @@
 		82AE2C3229A833E8005FC00A /* Clima */ = {
 			isa = PBXGroup;
 			children = (
+				8242A28E29AA435E000CF4F8 /* Extensions */,
 				82AE2C4D29A834CC005FC00A /* Resources */,
 				82AE2C4729A83485005FC00A /* Home */,
 				82AE2C4129A833EB005FC00A /* Info.plist */,
@@ -84,7 +136,9 @@
 		82AE2C4829A83489005FC00A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8242A29529AA5029000CF4F8 /* TableViewCells */,
 				82AE2C4E29A834EE005FC00A /* HomeView.swift */,
+				8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,6 +245,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				82AE2C4029A833EB005FC00A /* LaunchScreen.storyboard in Resources */,
+				8242A29A29AA504E000CF4F8 /* HourlyForecastTableViewCell.xib in Resources */,
+				8242A29F29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.xib in Resources */,
 				82AE2C3D29A833EB005FC00A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,10 +261,15 @@
 				82AE2C4F29A834EE005FC00A /* HomeView.swift in Sources */,
 				82AE2C5529A83504005FC00A /* HomeEntity.swift in Sources */,
 				82AE2C5729A8350C005FC00A /* HomeRouter.swift in Sources */,
+				8242A29429AA4D64000CF4F8 /* HomeConstraints+.swift in Sources */,
 				82AE2C3429A833E8005FC00A /* AppDelegate.swift in Sources */,
+				8242A29029AA43C0000CF4F8 /* UIImageView+.swift in Sources */,
 				82AE2C3629A833E8005FC00A /* SceneDelegate.swift in Sources */,
 				82AE2C5329A834FB005FC00A /* HomePresenter.swift in Sources */,
 				82AE2C5129A834F4005FC00A /* HomeInteractor.swift in Sources */,
+				8242A29229AA488B000CF4F8 /* UIColor+.swift in Sources */,
+				8242A29E29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift in Sources */,
+				8242A29929AA504E000CF4F8 /* HourlyForecastTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
