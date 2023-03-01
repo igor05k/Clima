@@ -11,11 +11,17 @@ protocol AnyHomeView: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     
     func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity)
-    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity)
+    func updateHourlyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?, keys: [String], weekDays: [String: String])
 }
 
 class HomeView: UIViewController, AnyHomeView {
     var presenter: AnyHomePresenter?
+    
+    private var dictOfForecasts: [String: (tempMin: Double, tempMax: Double, icon: String)]?
+//    private var weekDays: [String] = [String]()
+    private var weekDays: [String: String] = [:]
+    
+    private var keys: [String] = [String]()
     
     private var weatherInfo: CurrentWeatherEntity?
     private var hourlyForecastInfo: HourlyForecastEntity?
@@ -138,9 +144,13 @@ class HomeView: UIViewController, AnyHomeView {
         }
     }
     
-    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity) {
+    func updateHourlyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?,
+                              keys: [String],
+                              weekDays: [String: String]) {
         DispatchQueue.main.async { [weak self] in
-            self?.hourlyForecastInfo = weatherInfo
+            self?.keys = keys
+            self?.weekDays = weekDays
+            self?.dictOfForecasts = weatherInfo
             self?.tableView.reloadData()
         }
     }
@@ -162,8 +172,12 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysOfTheWeekTableViewCell.identifier, for: indexPath) as? DaysOfTheWeekTableViewCell else { return UITableViewCell() }
             
-            if let list = hourlyForecastInfo?.list {
-                cell.configureElements(model: list[indexPath.row])
+            if let tempMin = dictOfForecasts?[keys[indexPath.row]]?.tempMin,
+               let tempMax = dictOfForecasts?[keys[indexPath.row]]?.tempMax,
+               let icon = dictOfForecasts?[keys[indexPath.row]]?.icon,
+               let weekDays = weekDays[keys[indexPath.row]] {
+                
+                cell.configureElements(weekDay: weekDays, tempMin: tempMin, tempMax: tempMax, icon: icon)
             }
             
             return cell
@@ -174,7 +188,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         }
-        return 5
+        return dictOfForecasts?.count ?? 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

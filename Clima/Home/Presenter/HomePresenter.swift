@@ -24,47 +24,54 @@ class HomePresenter: AnyHomePresenter {
     
     var interactor: AnyHomeInteractor? {
         didSet {
-             interactor?.fetchUserLocation()
+            interactor?.fetchUserLocation()
         }
     }
     
     weak var router: AnyHomeRouter?
     
-    func checkForecastDays(model: HourlyForecastEntity) -> [String: (tempMin: Double, tempMax: Double, icon: String)] {
-        guard let list = model.list else { return [:] }
-
+    private func convertDateToDictWeekdays(dict: [String: (tempMin: Double, tempMax: Double, icon: String)]?) -> [String: String]? {
+        guard let keys = dict?.keys else { return nil }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "yyyy-MM-dd"
-
-        var uniqueDaysForecastProperties: [String: (tempMin: Double, tempMax: Double, icon: String)] = [:]
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        for item in list {
-            if let dateString = item.dtTxt, let date = dateFormatter.date(from: dateString) {
-                let outputDateString = outputDateFormatter.string(from: date)
-                if uniqueDaysForecastProperties[outputDateString] == nil {
-                    let tempMin = item.main?.tempMin ?? 0
-                    let tempMax = item.main?.tempMax ?? 0
-                    let icon = item.weather?.first?.icon ?? ""
-                    uniqueDaysForecastProperties[outputDateString] = (tempMin, tempMax, icon)
-                } else {
-                    // item already exists so skip it
-                    continue
-                }
+        let dayOfWeekFormatter = DateFormatter()
+        dayOfWeekFormatter.dateFormat = "EEEE"
+        
+        var weekdays: [String: String] = [:]
+        
+        for key in keys {
+            if let dayOfWeek = dateFormatter.date(from: key) {
+                
+                let formatted = dayOfWeekFormatter.string(from: dayOfWeek) // Quarta-feira
+                weekdays[key] = formatted
             }
         }
         
-        return uniqueDaysForecastProperties
+        return weekdays
+    }
+    
+    private func getForecastKeyDays(result: [String: (tempMin: Double, tempMax: Double, icon: String)]) -> [String] {
+        let weekdaysKeys = result.keys
+        
+        var keys: [String] = [String]()
+        
+        for key in weekdaysKeys {
+            keys.append(key)
+        }
+        
+        return keys
     }
     
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>) {
         switch result {
         case .success(let success):
-            view?.updateHourlyForecast(with: success)
-            let abc = checkForecastDays(model: success)
-            print(abc)
+            if let result = interactor?.checkUniqueForecastDays(model: success),
+               let weekDays = convertDateToDictWeekdays(dict: result) {
+                let keys = getForecastKeyDays(result: result).sorted()
+                
+                view?.updateHourlyForecast(with: result, keys: keys, weekDays: weekDays)
+            }
         case .failure(let failure):
             // TODO: error handling
             print(failure)
@@ -72,8 +79,8 @@ class HomePresenter: AnyHomePresenter {
     }
     
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees) {
-//        interactor?.getCurrentWeather(lat: lat, lon: lon)
-        interactor?.getHourlyForecast(lat: lat, lon: lon, cnt: 8)
+        // interactor?.getCurrentWeather(lat: lat, lon: lon)
+        interactor?.getHourlyForecast(lat: lat, lon: lon, cnt: nil)
     }
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>) {

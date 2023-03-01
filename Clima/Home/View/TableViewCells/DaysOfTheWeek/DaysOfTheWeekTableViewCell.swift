@@ -56,10 +56,16 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
         return dayOfWeekFormatter.string(from: date)
     }
     
-    func configureElements(model: List) {
-        DispatchQueue.main.async { [weak self] in
-            let formattedDate = self?.dayOfWeek(from: model.dtTxt ?? "No date")
-            self?.dayOfTheWeekLbl.text = formattedDate?.capitalized
-        }
+    func configureElements(weekDay: String, tempMin: Double, tempMax: Double, icon: String) {
+        dayOfTheWeekLbl.text = weekDay
+        minTempLbl.text = String(tempMin)
+        maxTempLbl.text = String(tempMax)
     }
+    
+//    func configureElements(model: List) {
+//        DispatchQueue.main.async { [weak self] in
+//            let formattedDate = self?.dayOfWeek(from: model.dtTxt ?? "No date")
+//            self?.dayOfTheWeekLbl.text = formattedDate?.capitalized
+//        }
+//    }
 }
