@@ -20,8 +20,6 @@ class HomeView: UIViewController, AnyHomeView {
     private var weatherInfo: CurrentWeatherEntity?
     private var hourlyForecastInfo: HourlyForecastEntity?
     
-//    private var testWeatherObjectInfo: CurrentWeatherEntity?
-    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +116,7 @@ class HomeView: UIViewController, AnyHomeView {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
+        tableView.register(DaysOfTheWeekTableViewCell.nib(), forCellReuseIdentifier: DaysOfTheWeekTableViewCell.identifier)
     }
     
     func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity) {
@@ -146,23 +145,47 @@ class HomeView: UIViewController, AnyHomeView {
         }
     }
     
+    // TODO: move to presenter
     func kelvinToCelsius(_ k: Double) -> Double { k - 273.15 }
 }
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell()}
-        
-        if let hourlyForecastInfo {
-            cell.configureElements(model: hourlyForecastInfo)
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell() }
+            
+            if let hourlyForecastInfo {
+                cell.configureElements(model: hourlyForecastInfo)
+            }
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysOfTheWeekTableViewCell.identifier, for: indexPath) as? DaysOfTheWeekTableViewCell else { return UITableViewCell() }
+            
+            if let list = hourlyForecastInfo?.list {
+                cell.configureElements(model: list[indexPath.row])
+            }
+            
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        }
+        return 5
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 150 }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 150
+        } else {
+            return 80
+        }
+    }
 }

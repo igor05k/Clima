@@ -21,7 +21,7 @@ protocol AnyHomeInteractor: AnyObject {
     func fetchUserLocation()
     
     func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees)
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees)
+    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees, cnt: Int?)
 }
 
 class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
@@ -62,11 +62,17 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
         }.resume()
     }
     
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees, cnt: Int?) {
         let latToString = String(lat)
         let lonToString = String(lon)
         
-        guard let url = URL(string: APIConfig.base_URL_forecast.rawValue + "lat=\(latToString)&lon=\(lonToString)&cnt=8&appid=" + APIConfig.api_key.rawValue) else { return }
+        var urlString = APIConfig.base_URL_forecast.rawValue + "lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue
+        
+        if let cnt {
+            urlString += "&cnt=\(cnt)"
+        }
+        
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data, error == nil else { return }

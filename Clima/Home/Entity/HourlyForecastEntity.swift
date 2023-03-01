@@ -20,7 +20,6 @@ struct City: Codable {
     let name: String?
     let coord: Coord?
     let country: String?
-    let population, timezone, sunrise, sunset: Int?
 }
 
 // MARK: - List
@@ -28,25 +27,11 @@ struct List: Codable {
     let dt: Int?
     let main: Main?
     let weather: [Weather]?
-    let clouds: Clouds?
-    let wind: Wind?
-    let visibility: Int?
-    let pop: Double?
-    let rain: Rain?
-    let sys: Sys?
     let dtTxt: String?
 
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, visibility, pop, rain, sys
+        case dt, main, weather
         case dtTxt = "dt_txt"
     }
 }
 
-// MARK: - Rain
-struct Rain: Codable {
-    let the3H: Double?
-
-    enum CodingKeys: String, CodingKey {
-        case the3H = "3h"
-    }
-}
