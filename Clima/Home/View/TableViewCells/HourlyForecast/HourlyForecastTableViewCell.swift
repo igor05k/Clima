@@ -61,15 +61,15 @@ extension HourlyForecastTableViewCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyForecastCollectionViewCell.identifier, for: indexPath) as? HourlyForecastCollectionViewCell else { return UICollectionViewCell() }
         
-//        let hour = hourlyForecastInfo?.list?[indexPath.row].dtTxt ?? "No time"
-//        let icon = hourlyForecastInfo?.list?[indexPath.row].weather?[0].icon ?? ""
-//        let temp = kelvinToCelsius(hourlyForecastInfo?.list?[indexPath.row].main?.temp ?? 0)
-//
-//        let formattedTemp = String(temp).prefix(1) + "°"
-//
-//        if let convertedHour = convertToAmPm(hour) {
-//            cell.setupCell(label: convertedHour, icon: icon, tempLabel: String(formattedTemp))
-//        }
+        let hour = hourlyForecastInfo?.list?[indexPath.row].dtTxt ?? "No time"
+        let icon = hourlyForecastInfo?.list?[indexPath.row].weather?[0].icon ?? ""
+        let temp = kelvinToCelsius(hourlyForecastInfo?.list?[indexPath.row].main?.temp ?? 0)
+
+        let formattedTemp = String(temp).prefix(1) + "°"
+
+        if let convertedHour = convertToAmPm(hour) {
+            cell.setupCell(label: convertedHour, icon: icon, tempLabel: String(formattedTemp))
+        }
 
         return cell
     }

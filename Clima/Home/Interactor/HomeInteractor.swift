@@ -23,9 +23,11 @@ protocol AnyHomeInteractor: AnyObject {
     var locationManager: CLLocationManager? { get set }
     
     func fetchUserLocation()
+    // TODO: tentar fazer uma funçao generica que inclua todos os tipos; posso colocar um enum como parametro e de acordo com cada tipo fazer uma chamada
     
     func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees)
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees, cnt: Int?)
+    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees)
+    func getDailyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees)
     func checkUniqueForecastDays(model: HourlyForecastEntity) -> [String: (tempMin: Double, tempMax: Double, icon: String)]
 }
 
@@ -52,15 +54,11 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
         }.resume()
     }
     
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees, cnt: Int?) {
+    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
         let latToString = String(lat)
         let lonToString = String(lon)
         
-        var urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue
-        
-        if let cnt {
-            urlString += "&cnt=\(cnt)"
-        }
+        var urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue + "&cnt=8"
         
         guard let url = URL(string: urlString) else { return }
         
@@ -72,6 +70,26 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
                 self?.presenter?.didFetchHourlyForecast(result: .success(json))
             } catch {
                 self?.presenter?.didFetchHourlyForecast(result: .failure(error))
+            }
+        }.resume()
+    }
+    
+    func getDailyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+        let latToString = String(lat)
+        let lonToString = String(lon)
+        
+        var urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data, error == nil else { return }
+            
+            do {
+                let json = try JSONDecoder().decode(HourlyForecastEntity.self, from: data)
+                self?.presenter?.didFetchDailyForecast(result: .success(json))
+            } catch {
+                self?.presenter?.didFetchDailyForecast(result: .failure(error))
             }
         }.resume()
     }

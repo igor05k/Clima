@@ -11,7 +11,8 @@ protocol AnyHomeView: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     
     func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity)
-    func updateHourlyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?, keys: [String], weekDays: [String: String])
+    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity)
+    func updateDailyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?, keys: [String], weekDays: [String: String])
 }
 
 class HomeView: UIViewController, AnyHomeView {
@@ -143,7 +144,14 @@ class HomeView: UIViewController, AnyHomeView {
         }
     }
     
-    func updateHourlyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?,
+    func updateHourlyForecast(with weatherInfo: HourlyForecastEntity) {
+        DispatchQueue.main.async { [weak self] in
+            self?.hourlyForecastInfo = weatherInfo
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func updateDailyForecast(with weatherInfo: [String: (tempMin: Double, tempMax: Double, icon: String)]?,
                               keys: [String],
                               weekDays: [String: String]) {
         DispatchQueue.main.async { [weak self] in
@@ -153,9 +161,6 @@ class HomeView: UIViewController, AnyHomeView {
             self?.tableView.reloadData()
         }
     }
-    
-    // TODO: move to presenter
-    
 }
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {

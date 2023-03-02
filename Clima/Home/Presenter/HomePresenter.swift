@@ -15,7 +15,7 @@ protocol AnyHomePresenter: AnyObject {
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>)
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>)
-    
+    func didFetchDailyForecast(result: Result<HourlyForecastEntity, Error>)
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees)
     
     func kelvinToCelsius(_ k: Double) -> Double
@@ -70,11 +70,22 @@ class HomePresenter: AnyHomePresenter {
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>) {
         switch result {
         case .success(let success):
+            // update hourly forecast
+            view?.updateHourlyForecast(with: success)
+        case .failure(let failure):
+            print(failure)
+        }
+    }
+    
+    func didFetchDailyForecast(result: Result<HourlyForecastEntity, Error>) {
+        switch result {
+        case .success(let success):
+            // update daily forecast
             if let result = interactor?.checkUniqueForecastDays(model: success),
                let weekDays = convertDateToDictWeekdays(dict: result) {
                 let keys = getForecastKeyDays(result: result).sorted()
                 
-                view?.updateHourlyForecast(with: result, keys: keys, weekDays: weekDays)
+                view?.updateDailyForecast(with: result, keys: keys, weekDays: weekDays)
             }
         case .failure(let failure):
             // TODO: error handling
@@ -84,7 +95,8 @@ class HomePresenter: AnyHomePresenter {
     
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees) {
         // interactor?.getCurrentWeather(lat: lat, lon: lon)
-        interactor?.getHourlyForecast(lat: lat, lon: lon, cnt: nil)
+        interactor?.getHourlyForecast(lat: lat, lon: lon)
+        interactor?.getDailyForecast(lat: lat, lon: lon)
     }
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>) {
