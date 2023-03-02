@@ -18,16 +18,18 @@ enum APIConfig: String {
     case api_key = "07654e4f64da69e379560cfdda5dbe99"
 }
 
+enum Forecast {
+    case hourly
+    case daily
+}
+
 protocol AnyHomeInteractor: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     var locationManager: CLLocationManager? { get set }
     
     func fetchUserLocation()
-    // TODO: tentar fazer uma funçao generica que inclua todos os tipos; posso colocar um enum como parametro e de acordo com cada tipo fazer uma chamada
-    
     func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees)
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees)
-    func getDailyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees)
+    func fetchForecastData(lat: CLLocationDegrees, lon: CLLocationDegrees, type: Forecast)
     func checkUniqueForecastDays(model: HourlyForecastEntity) -> [String: (tempMin: Double, tempMax: Double, icon: String)]
 }
 
@@ -54,11 +56,20 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
         }.resume()
     }
     
-    func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+    func fetchForecastData(lat: CLLocationDegrees, lon: CLLocationDegrees, type: Forecast) {
+        switch type {
+        case .hourly:
+            getHourlyForecast(lat: lat, lon: lon)
+        case .daily:
+            getDailyForecast(lat: lat, lon: lon)
+        }
+    }
+    
+    private func getHourlyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
         let latToString = String(lat)
         let lonToString = String(lon)
         
-        var urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue + "&cnt=8"
+        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue + "&cnt=8"
         
         guard let url = URL(string: urlString) else { return }
         
@@ -74,11 +85,11 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
         }.resume()
     }
     
-    func getDailyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+    private func getDailyForecast(lat: CLLocationDegrees, lon: CLLocationDegrees) {
         let latToString = String(lat)
         let lonToString = String(lon)
         
-        var urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue
+        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(latToString)&lon=\(lonToString)&appid=" + APIConfig.api_key.rawValue
         
         guard let url = URL(string: urlString) else { return }
         

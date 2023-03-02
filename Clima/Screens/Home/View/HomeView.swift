@@ -7,6 +7,8 @@
 
 import UIKit
 
+typealias NewLocationHandler = (() -> Void)
+
 protocol AnyHomeView: AnyObject {
     var presenter: AnyHomePresenter? { get set }
     
@@ -17,6 +19,8 @@ protocol AnyHomeView: AnyObject {
 
 class HomeView: UIViewController, AnyHomeView {
     var presenter: AnyHomePresenter?
+    
+    var didTapAddNewLocation: NewLocationHandler?
     
     private var dictOfForecasts: [String: (tempMin: Double, tempMax: Double, icon: String)]?
     private var weekDays: [String: String] = [:]
@@ -37,6 +41,11 @@ class HomeView: UIViewController, AnyHomeView {
         configMinMaxStackView()
         configTableView()
         configTableViewConstraints()
+        configBarButtonItem()
+    }
+    
+    @objc func addButtonTapped() {
+        presenter?.didTapAddNewLocation()
     }
     
     lazy var tableView: UITableView = {
@@ -116,6 +125,11 @@ class HomeView: UIViewController, AnyHomeView {
         maxTemp.translatesAutoresizingMaskIntoConstraints = false
         return maxTemp
     }()
+    
+    private func configBarButtonItem() {
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
+    }
     
     private func configTableView() {
         tableView.delegate = self

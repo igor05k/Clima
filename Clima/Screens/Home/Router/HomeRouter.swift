@@ -14,6 +14,8 @@ protocol AnyHomeRouter: AnyObject {
     var homeView: HomeView? { get set }
     
     static func start() -> AnyHomeRouter
+    
+    func goToAddNewLocation()
 }
 
 class HomeRouter: AnyHomeRouter {
@@ -41,5 +43,10 @@ class HomeRouter: AnyHomeRouter {
         presenter.view = router.homeView
         
         return router
+    }
+    
+    func goToAddNewLocation() {
+        let controller = AddNewLocationView()
+        view?.navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A84F29B1331000753815 /* AddNewLocationView.swift */; };
+		8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85129B1332500753815 /* AddNewLocationInteractor.swift */; };
+		8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85329B1333000753815 /* AddNewLocationPresenter.swift */; };
+		8216A85629B1334E00753815 /* AddNewLocationPresenterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */; };
+		8216A85829B1335D00753815 /* AddNewLocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85729B1335D00753815 /* AddNewLocationRouter.swift */; };
 		8242A29029AA43C0000CF4F8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */; };
 		8242A29229AA488B000CF4F8 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29129AA488B000CF4F8 /* UIColor+.swift */; };
 		8242A29429AA4D64000CF4F8 /* HomeConstraints+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */; };
@@ -29,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8216A84F29B1331000753815 /* AddNewLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationView.swift; sourceTree = "<group>"; };
+		8216A85129B1332500753815 /* AddNewLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationInteractor.swift; sourceTree = "<group>"; };
+		8216A85329B1333000753815 /* AddNewLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenter.swift; sourceTree = "<group>"; };
+		8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenterEntity.swift; sourceTree = "<group>"; };
+		8216A85729B1335D00753815 /* AddNewLocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationRouter.swift; sourceTree = "<group>"; };
 		8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		8242A29129AA488B000CF4F8 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeConstraints+.swift"; sourceTree = "<group>"; };
@@ -63,6 +73,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8216A84829B1329100753815 /* AddNewLocation */ = {
+			isa = PBXGroup;
+			children = (
+				8216A84929B1329B00753815 /* View */,
+				8216A84C29B132A300753815 /* Interactor */,
+				8216A84B29B132A000753815 /* Presenter */,
+				8216A84A29B1329D00753815 /* Entity */,
+				8216A84D29B132A700753815 /* Router */,
+			);
+			path = AddNewLocation;
+			sourceTree = "<group>";
+		};
+		8216A84929B1329B00753815 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8216A84F29B1331000753815 /* AddNewLocationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8216A84A29B1329D00753815 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		8216A84B29B132A000753815 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8216A85329B1333000753815 /* AddNewLocationPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8216A84C29B132A300753815 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				8216A85129B1332500753815 /* AddNewLocationInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		8216A84D29B132A700753815 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8216A85729B1335D00753815 /* AddNewLocationRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		8216A84E29B132DC00753815 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8216A84829B1329100753815 /* AddNewLocation */,
+				82AE2C4729A83485005FC00A /* Home */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		8242A28E29AA435E000CF4F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,10 +200,10 @@
 		82AE2C3229A833E8005FC00A /* Clima */ = {
 			isa = PBXGroup;
 			children = (
+				8216A84E29B132DC00753815 /* Screens */,
 				8242A28E29AA435E000CF4F8 /* Extensions */,
-				82AE2C4D29A834CC005FC00A /* Resources */,
-				82AE2C4729A83485005FC00A /* Home */,
 				82AE2C4129A833EB005FC00A /* Info.plist */,
+				82AE2C4D29A834CC005FC00A /* Resources */,
 			);
 			path = Clima;
 			sourceTree = "<group>";
@@ -195,9 +266,9 @@
 		82AE2C4D29A834CC005FC00A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82AE2C3329A833E8005FC00A /* AppDelegate.swift */,
 				82AE2C3C29A833EB005FC00A /* Assets.xcassets */,
 				82AE2C3E29A833EB005FC00A /* LaunchScreen.storyboard */,
-				82AE2C3329A833E8005FC00A /* AppDelegate.swift */,
 				82AE2C3529A833E8005FC00A /* SceneDelegate.swift */,
 			);
 			path = Resources;
@@ -276,8 +347,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */,
 				82AE2C4F29A834EE005FC00A /* HomeView.swift in Sources */,
 				82AE2C5529A83504005FC00A /* CurrentWeatherEntity.swift in Sources */,
+				8216A85829B1335D00753815 /* AddNewLocationRouter.swift in Sources */,
+				8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */,
 				8242A2A529AAC4AF000CF4F8 /* DaysOfTheWeekTableViewCell.swift in Sources */,
 				8242A2A129AA5B74000CF4F8 /* HourlyForecastEntity.swift in Sources */,
 				82AE2C5729A8350C005FC00A /* HomeRouter.swift in Sources */,
@@ -289,6 +363,8 @@
 				82AE2C5129A834F4005FC00A /* HomeInteractor.swift in Sources */,
 				8242A29229AA488B000CF4F8 /* UIColor+.swift in Sources */,
 				8242A29E29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift in Sources */,
+				8216A85629B1334E00753815 /* AddNewLocationPresenterEntity.swift in Sources */,
+				8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */,
 				8242A29929AA504E000CF4F8 /* HourlyForecastTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

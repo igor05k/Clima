@@ -18,6 +18,8 @@ protocol AnyHomePresenter: AnyObject {
     func didFetchDailyForecast(result: Result<HourlyForecastEntity, Error>)
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees)
     
+    func didTapAddNewLocation()
+    
     func kelvinToCelsius(_ k: Double) -> Double
 }
 
@@ -30,7 +32,11 @@ class HomePresenter: AnyHomePresenter {
         }
     }
     
-    weak var router: AnyHomeRouter?
+    var router: AnyHomeRouter?
+    
+    func didTapAddNewLocation() {
+        router?.goToAddNewLocation()
+    }
     
     private func convertDateToDictWeekdays(dict: [String: (tempMin: Double, tempMax: Double, icon: String)]?) -> [String: String]? {
         guard let keys = dict?.keys else { return nil }
@@ -94,9 +100,9 @@ class HomePresenter: AnyHomePresenter {
     }
     
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees) {
-        // interactor?.getCurrentWeather(lat: lat, lon: lon)
-        interactor?.getHourlyForecast(lat: lat, lon: lon)
-        interactor?.getDailyForecast(lat: lat, lon: lon)
+//        interactor?.getCurrentWeather(lat: lat, lon: lon)
+//        interactor?.fetchForecastData(lat: lat, lon: lon, type: .daily)
+//        interactor?.fetchForecastData(lat: lat, lon: lon, type: .hourly)
     }
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>) {
