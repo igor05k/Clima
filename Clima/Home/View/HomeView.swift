@@ -18,7 +18,6 @@ class HomeView: UIViewController, AnyHomeView {
     var presenter: AnyHomePresenter?
     
     private var dictOfForecasts: [String: (tempMin: Double, tempMax: Double, icon: String)]?
-//    private var weekDays: [String] = [String]()
     private var weekDays: [String: String] = [:]
     
     private var keys: [String] = [String]()
@@ -129,7 +128,7 @@ class HomeView: UIViewController, AnyHomeView {
         DispatchQueue.main.async { [weak self] in
             self?.weatherInfo = weatherInfo
             
-            let temp = self?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
+            let temp = self?.presenter?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
             
             let desc = weatherInfo.weather?[0].description?.capitalized
             let icon = weatherInfo.weather?[0].icon
@@ -156,7 +155,7 @@ class HomeView: UIViewController, AnyHomeView {
     }
     
     // TODO: move to presenter
-    func kelvinToCelsius(_ k: Double) -> Double { k - 273.15 }
+    
 }
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
@@ -177,7 +176,10 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
                let icon = dictOfForecasts?[keys[indexPath.row]]?.icon,
                let weekDays = weekDays[keys[indexPath.row]] {
                 
-                cell.configureElements(weekDay: weekDays, tempMin: tempMin, tempMax: tempMax, icon: icon)
+                let tempMinConv = Int(floor(presenter?.kelvinToCelsius(tempMin) ?? 0))
+                let tempMaxConv = Int(ceil(presenter?.kelvinToCelsius(tempMax) ?? 0))
+                
+                cell.configureElements(weekDay: weekDays, tempMin: tempMinConv, tempMax: tempMaxConv, icon: icon)
             }
             
             return cell

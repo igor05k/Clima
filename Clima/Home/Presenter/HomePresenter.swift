@@ -17,6 +17,8 @@ protocol AnyHomePresenter: AnyObject {
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>)
     
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees)
+    
+    func kelvinToCelsius(_ k: Double) -> Double
 }
 
 class HomePresenter: AnyHomePresenter {
@@ -62,6 +64,8 @@ class HomePresenter: AnyHomePresenter {
         
         return keys
     }
+    
+    func kelvinToCelsius(_ k: Double) -> Double { k - 273.15 }
     
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>) {
         switch result {

@@ -93,7 +93,7 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
         presenter?.didFetchUserCoordinates(lat: latitude, lon: longitude)
     }
     
-    /// filter only non-repetitive values from the response
+    /// gets the temp max and min for each day
     func checkUniqueForecastDays(model: HourlyForecastEntity) -> [String: (tempMin: Double, tempMax: Double, icon: String)] {
         guard let list = model.list else { return [:] }
 
@@ -102,24 +102,35 @@ class HomeInteractor: NSObject, AnyHomeInteractor, CLLocationManagerDelegate {
 
         let outputDateFormatter = DateFormatter()
         outputDateFormatter.dateFormat = "yyyy-MM-dd"
-
-        var uniqueDaysForecastProperties: [String: (tempMin: Double, tempMax: Double, icon: String)] = [:]
         
+        // create a dictionary to store the max and min temperatures for each date
+        var dailyTemperatures: [String: (tempMin: Double, tempMax: Double, icon: String)] = [:]
+
+        // iterate over all items
         for item in list {
-            if let dateString = item.dtTxt, let date = dateFormatter.date(from: dateString) {
-                let outputDateString = outputDateFormatter.string(from: date)
-                if uniqueDaysForecastProperties[outputDateString] == nil {
-                    let tempMin = item.main?.tempMin ?? 0
-                    let tempMax = item.main?.tempMax ?? 0
-                    let icon = item.weather?.first?.icon ?? ""
-                    uniqueDaysForecastProperties[outputDateString] = (tempMin, tempMax, icon)
-                } else {
-                    // item already exists so skip it
-                    continue
-                }
+            guard let timestamp = item.dtTxt,
+                  let temperatureMax = item.main?.tempMax,
+                  let temperatureMin = item.main?.tempMin,
+                  let icon = item.weather?.first?.icon else {
+                continue
+            }
+            
+            // convert from "yyyy-MM-dd HH:mm:ss" to "yyyy-MM-dd"
+            let date = dateFormatter.date(from: timestamp) ?? Date()
+            let outputDateString = outputDateFormatter.string(from: date)
+            
+            // check if the max and min temperatures for this date does exist
+            if let existingTemperatures = dailyTemperatures[outputDateString] {
+                // if it already exists compare the values and assign the min or max depending on each case
+                let updatedMax = max(existingTemperatures.tempMax, temperatureMax)
+                let updatedMin = min(existingTemperatures.tempMin, temperatureMin)
+                dailyTemperatures[outputDateString] = (updatedMin, updatedMax, icon)
+            } else {
+                // if the timestamp doesnt exist in the dict, assign the new values
+                dailyTemperatures[outputDateString] = (temperatureMin, temperatureMax, icon)
             }
         }
         
-        return uniqueDaysForecastProperties
+        return dailyTemperatures
     }
 }

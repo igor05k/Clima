@@ -37,8 +37,8 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
     
     func configVisualElements() {
         dayOfTheWeekLbl.font = .systemFont(ofSize: 20, weight: .bold)
-        maxTempLbl.font = .systemFont(ofSize: 20, weight: .bold)
-        minTempLbl.font = .systemFont(ofSize: 20, weight: .bold)
+        maxTempLbl.font = .systemFont(ofSize: 20, weight: .medium)
+        minTempLbl.font = .systemFont(ofSize: 20, weight: .medium)
     }
     
     /// convert date string to weekday
@@ -56,16 +56,13 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
         return dayOfWeekFormatter.string(from: date)
     }
     
-    func configureElements(weekDay: String, tempMin: Double, tempMax: Double, icon: String) {
-        dayOfTheWeekLbl.text = weekDay
-        minTempLbl.text = String(tempMin)
-        maxTempLbl.text = String(tempMax)
+    func configureElements(weekDay: String, tempMin: Int, tempMax: Int, icon: String) {
+        dayOfTheWeekLbl.text = weekDay.capitalized
+        minTempLbl.text = String(tempMin) + "°"
+        maxTempLbl.text = String(tempMax) + "°"
+        
+        if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
+            weatherIconImageView.downloadImage(from: url)
+        }
     }
-    
-//    func configureElements(model: List) {
-//        DispatchQueue.main.async { [weak self] in
-//            let formattedDate = self?.dayOfWeek(from: model.dtTxt ?? "No date")
-//            self?.dayOfTheWeekLbl.text = formattedDate?.capitalized
-//        }
-//    }
 }
