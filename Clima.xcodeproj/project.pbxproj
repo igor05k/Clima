@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82039C6129B7B1A300383EFF /* LocationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82039C6029B7B1A300383EFF /* LocationsPresenter.swift */; };
+		82039C6329B7B1C700383EFF /* LocationsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82039C6229B7B1C700383EFF /* LocationsRouter.swift */; };
 		8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A84F29B1331000753815 /* AddNewLocationView.swift */; };
 		8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85129B1332500753815 /* AddNewLocationInteractor.swift */; };
 		8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85329B1333000753815 /* AddNewLocationPresenter.swift */; };
 		8216A85629B1334E00753815 /* AddNewLocationPresenterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */; };
 		8216A85829B1335D00753815 /* AddNewLocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85729B1335D00753815 /* AddNewLocationRouter.swift */; };
+		822F678B29B7A8A80078704C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F678A29B7A8A80078704C /* MainTabBarController.swift */; };
+		822F678D29B7A8D90078704C /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F678C29B7A8D90078704C /* TabBarRouter.swift */; };
+		822F679529B7AF520078704C /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F679429B7AF520078704C /* LocationsView.swift */; };
+		822F679729B7AFB50078704C /* LocationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F679629B7AFB50078704C /* LocationsInteractor.swift */; };
 		8242A29029AA43C0000CF4F8 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */; };
 		8242A29229AA488B000CF4F8 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29129AA488B000CF4F8 /* UIColor+.swift */; };
 		8242A29429AA4D64000CF4F8 /* HomeConstraints+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */; };
@@ -34,11 +40,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		82039C6029B7B1A300383EFF /* LocationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsPresenter.swift; sourceTree = "<group>"; };
+		82039C6229B7B1C700383EFF /* LocationsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsRouter.swift; sourceTree = "<group>"; };
 		8216A84F29B1331000753815 /* AddNewLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationView.swift; sourceTree = "<group>"; };
 		8216A85129B1332500753815 /* AddNewLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationInteractor.swift; sourceTree = "<group>"; };
 		8216A85329B1333000753815 /* AddNewLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenter.swift; sourceTree = "<group>"; };
 		8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenterEntity.swift; sourceTree = "<group>"; };
 		8216A85729B1335D00753815 /* AddNewLocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationRouter.swift; sourceTree = "<group>"; };
+		822F678A29B7A8A80078704C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		822F678C29B7A8D90078704C /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
+		822F679429B7AF520078704C /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
+		822F679629B7AFB50078704C /* LocationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsInteractor.swift; sourceTree = "<group>"; };
 		8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		8242A29129AA488B000CF4F8 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		8242A29329AA4D64000CF4F8 /* HomeConstraints+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeConstraints+.swift"; sourceTree = "<group>"; };
@@ -125,13 +137,75 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		8216A84E29B132DC00753815 /* Screens */ = {
+		8216A84E29B132DC00753815 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				822F678E29B7ACB70078704C /* Locations */,
+				822F678929B7A89E0078704C /* TabBar */,
 				8216A84829B1329100753815 /* AddNewLocation */,
 				82AE2C4729A83485005FC00A /* Home */,
 			);
-			path = Screens;
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		822F678929B7A89E0078704C /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				822F678A29B7A8A80078704C /* MainTabBarController.swift */,
+				822F678C29B7A8D90078704C /* TabBarRouter.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		822F678E29B7ACB70078704C /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				822F678F29B7AF290078704C /* View */,
+				822F679029B7AF320078704C /* Interactor */,
+				822F679229B7AF3B0078704C /* Presenter */,
+				822F679129B7AF350078704C /* Entity */,
+				822F679329B7AF3E0078704C /* Router */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		822F678F29B7AF290078704C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				822F679429B7AF520078704C /* LocationsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		822F679029B7AF320078704C /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				822F679629B7AFB50078704C /* LocationsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		822F679129B7AF350078704C /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		822F679229B7AF3B0078704C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				82039C6029B7B1A300383EFF /* LocationsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		822F679329B7AF3E0078704C /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				82039C6229B7B1C700383EFF /* LocationsRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		8242A28E29AA435E000CF4F8 /* Extensions */ = {
@@ -200,7 +274,7 @@
 		82AE2C3229A833E8005FC00A /* Clima */ = {
 			isa = PBXGroup;
 			children = (
-				8216A84E29B132DC00753815 /* Screens */,
+				8216A84E29B132DC00753815 /* Modules */,
 				8242A28E29AA435E000CF4F8 /* Extensions */,
 				82AE2C4129A833EB005FC00A /* Info.plist */,
 				82AE2C4D29A834CC005FC00A /* Resources */,
@@ -347,17 +421,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822F678D29B7A8D90078704C /* TabBarRouter.swift in Sources */,
 				8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */,
 				82AE2C4F29A834EE005FC00A /* HomeView.swift in Sources */,
+				82039C6329B7B1C700383EFF /* LocationsRouter.swift in Sources */,
+				822F678B29B7A8A80078704C /* MainTabBarController.swift in Sources */,
+				822F679729B7AFB50078704C /* LocationsInteractor.swift in Sources */,
 				82AE2C5529A83504005FC00A /* CurrentWeatherEntity.swift in Sources */,
 				8216A85829B1335D00753815 /* AddNewLocationRouter.swift in Sources */,
 				8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */,
+				822F679529B7AF520078704C /* LocationsView.swift in Sources */,
 				8242A2A529AAC4AF000CF4F8 /* DaysOfTheWeekTableViewCell.swift in Sources */,
 				8242A2A129AA5B74000CF4F8 /* HourlyForecastEntity.swift in Sources */,
 				82AE2C5729A8350C005FC00A /* HomeRouter.swift in Sources */,
 				8242A29429AA4D64000CF4F8 /* HomeConstraints+.swift in Sources */,
 				82AE2C3429A833E8005FC00A /* AppDelegate.swift in Sources */,
 				8242A29029AA43C0000CF4F8 /* UIImageView+.swift in Sources */,
+				82039C6129B7B1A300383EFF /* LocationsPresenter.swift in Sources */,
 				82AE2C3629A833E8005FC00A /* SceneDelegate.swift in Sources */,
 				82AE2C5329A834FB005FC00A /* HomePresenter.swift in Sources */,
 				82AE2C5129A834F4005FC00A /* HomeInteractor.swift in Sources */,

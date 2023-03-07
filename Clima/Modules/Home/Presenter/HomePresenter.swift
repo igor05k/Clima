@@ -10,8 +10,8 @@ import CoreLocation
 
 protocol AnyHomePresenter: AnyObject {
     var view: AnyHomeView? { get set }
-    var interactor: AnyHomeInteractor? { get set }
-    var router: AnyHomeRouter? { get set }
+    var interactor: AnyHomeInteractor { get set }
+    var router: AnyHomeRouter { get set }
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>)
     func didFetchHourlyForecast(result: Result<HourlyForecastEntity, Error>)
@@ -26,16 +26,19 @@ protocol AnyHomePresenter: AnyObject {
 class HomePresenter: AnyHomePresenter {
     weak var view: AnyHomeView?
     
-    var interactor: AnyHomeInteractor? {
-        didSet {
-            interactor?.fetchUserLocation()
-        }
+    var interactor: AnyHomeInteractor
+    var router: AnyHomeRouter
+    
+    init(view: AnyHomeView? = nil, interactor: AnyHomeInteractor, router: AnyHomeRouter) {
+        self.view = view
+        self.interactor = interactor
+        self.router = router
+        
+        interactor.fetchUserLocation()
     }
     
-    var router: AnyHomeRouter?
-    
     func didTapAddNewLocation() {
-        router?.goToAddNewLocation()
+        router.goToAddNewLocation()
     }
     
     private func convertDateToDictWeekdays(dict: [String: (tempMin: Double, tempMax: Double, icon: String)]?) -> [String: String]? {
@@ -87,8 +90,8 @@ class HomePresenter: AnyHomePresenter {
         switch result {
         case .success(let success):
             // update daily forecast
-            if let result = interactor?.checkUniqueForecastDays(model: success),
-               let weekDays = convertDateToDictWeekdays(dict: result) {
+            let result = interactor.checkUniqueForecastDays(model: success)
+            if let weekDays = convertDateToDictWeekdays(dict: result) {
                 let keys = getForecastKeyDays(result: result).sorted()
                 
                 view?.updateDailyForecast(with: result, keys: keys, weekDays: weekDays)
@@ -100,9 +103,9 @@ class HomePresenter: AnyHomePresenter {
     }
     
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees) {
-//        interactor?.getCurrentWeather(lat: lat, lon: lon)
-//        interactor?.fetchForecastData(lat: lat, lon: lon, type: .daily)
-//        interactor?.fetchForecastData(lat: lat, lon: lon, type: .hourly)
+        interactor.getCurrentWeather(lat: lat, lon: lon)
+        interactor.fetchForecastData(lat: lat, lon: lon, type: .daily)
+        interactor.fetchForecastData(lat: lat, lon: lon, type: .hourly)
     }
     
     func didFetchWeather(result: Result<CurrentWeatherEntity, Error>) {
