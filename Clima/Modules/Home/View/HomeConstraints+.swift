@@ -8,11 +8,23 @@
 import UIKit
 
 extension HomeView {
+    func configAddNewLocationButton() {
+        view.addSubview(addNewLocationButton)
+        addNewLocationButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            addNewLocationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            addNewLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            addNewLocationButton.widthAnchor.constraint(equalToConstant: 40),
+            addNewLocationButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
     func configCityLbl() {
         view.addSubview(cityName)
         
         NSLayoutConstraint.activate([
-            cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            cityName.topAnchor.constraint(equalTo: addNewLocationButton.bottomAnchor, constant: 20),
             cityName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             cityName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])

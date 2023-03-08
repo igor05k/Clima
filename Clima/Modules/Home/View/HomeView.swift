@@ -35,13 +35,25 @@ class HomeView: UIViewController, AnyHomeView {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
 
+        configAddNewLocationButton()
         configCityLbl()
         configTempStackView()
         configTempDescription()
         configMinMaxStackView()
         configTableView()
         configTableViewConstraints()
-        configBarButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     @objc func addButtonTapped() {
@@ -52,6 +64,15 @@ class HomeView: UIViewController, AnyHomeView {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
+    }()
+    
+    lazy var addNewLocationButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(systemName: "plus")
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.configuration = configuration
+        return btn
     }()
     
     lazy var cityName: UILabel = {

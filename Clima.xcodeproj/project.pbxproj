@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		82039C6129B7B1A300383EFF /* LocationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82039C6029B7B1A300383EFF /* LocationsPresenter.swift */; };
 		82039C6329B7B1C700383EFF /* LocationsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82039C6229B7B1C700383EFF /* LocationsRouter.swift */; };
+		8209EC3A29B8CF4B0008420B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */; };
+		8209EC3D29B8DE7A0008420B /* AddNewLocationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209EC3C29B8DE7A0008420B /* AddNewLocationBuilder.swift */; };
 		8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A84F29B1331000753815 /* AddNewLocationView.swift */; };
 		8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85129B1332500753815 /* AddNewLocationInteractor.swift */; };
 		8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85329B1333000753815 /* AddNewLocationPresenter.swift */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		82039C6029B7B1A300383EFF /* LocationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsPresenter.swift; sourceTree = "<group>"; };
 		82039C6229B7B1C700383EFF /* LocationsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsRouter.swift; sourceTree = "<group>"; };
+		8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		8209EC3C29B8DE7A0008420B /* AddNewLocationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationBuilder.swift; sourceTree = "<group>"; };
 		8216A84F29B1331000753815 /* AddNewLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationView.swift; sourceTree = "<group>"; };
 		8216A85129B1332500753815 /* AddNewLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationInteractor.swift; sourceTree = "<group>"; };
 		8216A85329B1333000753815 /* AddNewLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenter.swift; sourceTree = "<group>"; };
@@ -85,9 +89,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8209EC3829B8CF3D0008420B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		8209EC3B29B8DE5A0008420B /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				8209EC3C29B8DE7A0008420B /* AddNewLocationBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
 		8216A84829B1329100753815 /* AddNewLocation */ = {
 			isa = PBXGroup;
 			children = (
+				8209EC3B29B8DE5A0008420B /* Builder */,
 				8216A84929B1329B00753815 /* View */,
 				8216A84C29B132A300753815 /* Interactor */,
 				8216A84B29B132A000753815 /* Presenter */,
@@ -100,6 +121,7 @@
 		8216A84929B1329B00753815 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8209EC3829B8CF3D0008420B /* Search */,
 				8216A84F29B1331000753815 /* AddNewLocationView.swift */,
 			);
 			path = View;
@@ -422,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				822F678D29B7A8D90078704C /* TabBarRouter.swift in Sources */,
+				8209EC3A29B8CF4B0008420B /* SearchResultsViewController.swift in Sources */,
 				8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */,
 				82AE2C4F29A834EE005FC00A /* HomeView.swift in Sources */,
 				82039C6329B7B1C700383EFF /* LocationsRouter.swift in Sources */,
@@ -445,6 +468,7 @@
 				8242A29E29AA50A5000CF4F8 /* HourlyForecastCollectionViewCell.swift in Sources */,
 				8216A85629B1334E00753815 /* AddNewLocationPresenterEntity.swift in Sources */,
 				8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */,
+				8209EC3D29B8DE7A0008420B /* AddNewLocationBuilder.swift in Sources */,
 				8242A29929AA504E000CF4F8 /* HourlyForecastTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

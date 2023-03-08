@@ -7,7 +7,13 @@
 
 import Foundation
 
-// nome provisorio
-struct AddNewLocationEntity {
-    
+// MARK: - AutoComplete
+struct AutoComplete: Codable {
+    let predictions: [Prediction]?
 }
+
+// MARK: - Prediction
+struct Prediction: Codable {
+    let description: String?
+}
+

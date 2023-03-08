@@ -135,111 +135,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C783A9EB-6222-4E5F-A3A8-84F72FB2EAB7"
+            uuid = "3399ABAB-DB9B-466B-A19E-57CB0B963C1E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Clima/Modules/Home/Presenter/HomePresenter.swift"
+            filePath = "Clima/Modules/AddNewLocation/View/AddNewLocationView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "didFetchUserCoordinates(lat:lon:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "updateSearchResults(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "22049777-CBD2-4150-A1C9-B9834E27C2EF"
+            uuid = "87ADD265-BBBC-4183-B078-A3E9CA7DA94C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Clima/Modules/Home/Presenter/HomePresenter.swift"
+            filePath = "Clima/Modules/AddNewLocation/View/AddNewLocationView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "init(view:interactor:router:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "updateCitiesSuggestions(predictions:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0E9805F3-4275-4054-AA7B-284745A0BCF9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Clima/Modules/Home/Presenter/HomePresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "HomePresenter"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "0E9805F3-4275-4054-AA7B-284745A0BCF9 - 7f955fb0f497c373"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.HomePresenter.interactor.getter : Clima.AnyHomeInteractor"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/Home/Presenter/HomePresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "87">
-               </Location>
-               <Location
-                  uuid = "0E9805F3-4275-4054-AA7B-284745A0BCF9 - ed92a52722a4b77f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.HomePresenter.interactor.setter : Clima.AnyHomeInteractor"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/Home/Presenter/HomePresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "120">
-               </Location>
-               <Location
-                  uuid = "0E9805F3-4275-4054-AA7B-284745A0BCF9 - 41970a46276e766e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.HomePresenter.interactor.modify : Clima.AnyHomeInteractor"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/Home/Presenter/HomePresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "0">
-               </Location>
-               <Location
-                  uuid = "0E9805F3-4275-4054-AA7B-284745A0BCF9 - b07ba2b36c63d78c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.HomePresenter.interactor.modify : Clima.AnyHomeInteractor with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/Home/Presenter/HomePresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "17">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

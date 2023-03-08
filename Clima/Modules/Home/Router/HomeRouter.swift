@@ -29,7 +29,7 @@ class HomeRouter: AnyHomeRouter {
     }
     
     func goToAddNewLocation() {
-        let controller = AddNewLocationView()
-        view?.navigationController?.pushViewController(controller, animated: true)
+        let addNewLocation = AddNewLocation.build()
+        view?.navigationController?.pushViewController(addNewLocation, animated: true)
     }
 }
