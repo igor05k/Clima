@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SearchResultsViewDelegate: AnyObject {
+    func didSelectItem(with city: String)
+}
+
 class SearchResultsViewController: UIViewController {
+    
+    weak var delegate: SearchResultsViewDelegate?
     
     var predictions: [Prediction] = [Prediction]() {
         didSet {
@@ -55,5 +61,9 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return predictions.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectItem(with: predictions[indexPath.row].description ?? "")
     }
 }

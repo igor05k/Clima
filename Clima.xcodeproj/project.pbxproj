@@ -89,10 +89,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8209EC3829B8CF3D0008420B /* Search */ = {
+		82046C0729B8EF4A00D315BD /* View */ = {
 			isa = PBXGroup;
 			children = (
 				8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8209EC3829B8CF3D0008420B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				82046C0729B8EF4A00D315BD /* View */,
 			);
 			path = Search;
 			sourceTree = "<group>";

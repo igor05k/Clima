@@ -45,9 +45,16 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
     }
 }
 
+extension AddNewLocationView: SearchResultsViewDelegate {
+    func didSelectItem(with city: String) {
+        presenter?.fetchWeatherData(for: city)
+    }
+}
+
 extension AddNewLocationView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let resultController = searchBarController.searchResultsController as? SearchResultsViewController
+        resultController?.delegate = self
         
         if let searchBarText = searchBarController.searchBar.text {
             if !searchBarText.hasPrefix(" ") && searchBarText.count > 0 {

@@ -13,6 +13,7 @@ protocol AnyAddNewLocationPresenter: AnyObject {
     var router: AddNewLocationRouter { get set }
     
     func searchFor(userInput term: String, completion: (() -> Void)?)
+    func fetchWeatherData(for city: String)
 }
 
 class AddNewLocationPresenter: AnyAddNewLocationPresenter {
@@ -24,6 +25,17 @@ class AddNewLocationPresenter: AnyAddNewLocationPresenter {
         self.view = view
         self.interactor = interactor
         self.router = router
+    }
+    
+    func fetchWeatherData(for city: String) {
+        interactor.fetchWeather(for: city) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure   )
+            }
+        }
     }
     
     func searchFor(userInput term: String, completion: (() -> Void)?) {
