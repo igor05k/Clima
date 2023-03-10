@@ -35,29 +35,15 @@ class HomeView: UIViewController, AnyHomeView {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
 
-        configAddNewLocationButton()
+        configBarButtonItem()
         configCityLbl()
         configTempStackView()
         configTempDescription()
         configMinMaxStackView()
         configTableView()
         configTableViewConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    @objc func addButtonTapped() {
-        presenter?.didTapAddNewLocation()
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     lazy var tableView: UITableView = {
@@ -158,6 +144,10 @@ class HomeView: UIViewController, AnyHomeView {
         tableView.separatorStyle = .none
         tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
         tableView.register(DaysOfTheWeekTableViewCell.nib(), forCellReuseIdentifier: DaysOfTheWeekTableViewCell.identifier)
+    }
+    
+    @objc func addButtonTapped() {
+        presenter?.didTapAddNewLocation()
     }
     
     func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity) {

@@ -24,7 +24,7 @@ extension HomeView {
         view.addSubview(cityName)
         
         NSLayoutConstraint.activate([
-            cityName.topAnchor.constraint(equalTo: addNewLocationButton.bottomAnchor, constant: 20),
+            cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             cityName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             cityName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])

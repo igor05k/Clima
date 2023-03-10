@@ -30,10 +30,19 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
         title = "Add new location"
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchBarController
         
         searchBarController.searchResultsUpdater = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     func updateCitiesSuggestions(predictions: [Prediction]) {

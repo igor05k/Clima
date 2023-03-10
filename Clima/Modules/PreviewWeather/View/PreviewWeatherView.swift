@@ -15,6 +15,8 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     
     var presenter: AnyPreviewWeatherPresenter?
     
+    var data: HourlyForecastEntity?
+    
     lazy var tempLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "26°C"
@@ -86,6 +88,8 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     }
     
     func configWeather(data: HourlyForecastEntity) {
+        self.data = data
+        
         let minMaxAndIcon = WeatherUtils.shared.checkUniqueForecastDays(model: data)
         let tempMin = Int(floor(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius() ?? 0))
         let tempMax = Int(ceil(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius() ?? 0))
@@ -94,71 +98,23 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
         let descriptionTemp = data.list?[0].weather?[0].tempDescription ?? "No desc"
         let icon = data.list?[0].weather?[0].icon ?? ""
         let currentTemp = Int(floor(data.list?[0].main?.temp?.kelvinToCelsius() ?? 0))
-
+        
         cityLabel.text = cityName
         minTemperature.text = String(tempMin).prefix(2) + "°C"
         maxTemperature.text = String(tempMax).prefix(2) + "°C"
         tempLabel.text = String(currentTemp).prefix(2) + "°C"
         tempDescriptionLabel.text = descriptionTemp.capitalized
-
+        
         if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
             temperatureIcon.downloadImage(from: url)
         }
     }
     
-    func setTempLabelConstraints() {
-        view.addSubview(tempLabel)
-        
-        NSLayoutConstraint.activate([
-            tempLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            tempLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tempLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
-    }
-    
-    func setCityLabelConstraints() {
-        view.addSubview(cityLabel)
-        
-        NSLayoutConstraint.activate([
-            cityLabel.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: 15),
-            cityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            cityLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
-    }
-    
-    func configMinMaxStackView() {
-        view.addSubview(minMaxStackView)
-        minMaxStackView.addArrangedSubview(maxTemperature)
-        minMaxStackView.addArrangedSubview(minTemperature)
-        
-        NSLayoutConstraint.activate([
-            minMaxStackView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 15),
-            minMaxStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-        ])
-    }
-    
-    func setTempDescriptionConstraints() {
-        view.addSubview(tempDescriptionLabel)
-        
-        NSLayoutConstraint.activate([
-            tempDescriptionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
-            tempDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tempDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
-    }
-    
-    func setTempIcon() {
-        view.addSubview(temperatureIcon)
-        
-        NSLayoutConstraint.activate([
-            temperatureIcon.topAnchor.constraint(equalTo: tempDescriptionLabel.bottomAnchor, constant: 10),
-            temperatureIcon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            temperatureIcon.widthAnchor.constraint(equalToConstant: 70),
-            temperatureIcon.heightAnchor.constraint(equalToConstant: 70)
-        ])
-    }
-    
     @objc func saveCity() {
-        print(#function)
+        let cityName = data?.city?.name ?? "No name"
+        let currentTemp = Int(floor(data?.list?[0].main?.temp?.kelvinToCelsius() ?? 0))
+        let icon = data?.list?[0].weather?[0].icon ?? ""
+        let city = CityInfo(name: cityName, temp: currentTemp, icon: icon)
+        presenter?.didTapSaveCity(data: city)
     }
 }

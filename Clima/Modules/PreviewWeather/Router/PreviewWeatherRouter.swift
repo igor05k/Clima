@@ -8,9 +8,15 @@
 import Foundation
 
 protocol AnyPreviewWeatherRouter {
-    var view: AnyPreviewWeatherView? { get set }
+    var view: PreviewWeatherViewController? { get set }
+    
+    func dismissModal()
 }
 
 class PreviewWeatherRouter: AnyPreviewWeatherRouter {
-    weak var view: AnyPreviewWeatherView?
+    weak var view: PreviewWeatherViewController?
+    
+    func dismissModal() {
+        view?.dismiss(animated: true)
+    }
 }
