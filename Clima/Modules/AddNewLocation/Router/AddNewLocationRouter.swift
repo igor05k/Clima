@@ -17,8 +17,7 @@ class AddNewLocationRouter: AnyAddNewLocationRouter {
     
     func goToPreviewCityWeather(data: HourlyForecastEntity) {
         DispatchQueue.main.async { [weak self] in
-            let previewWeatherVC = PreviewWeatherViewController()
-            previewWeatherVC.configWeather(data: data)
+            let previewWeatherVC = PreviewWeatherViewBuilder.build(data: data)
             let navigation = UINavigationController(rootViewController: previewWeatherVC)
             self?.view?.present(navigation, animated: true)
         }

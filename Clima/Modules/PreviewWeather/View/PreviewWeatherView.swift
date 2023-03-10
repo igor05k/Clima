@@ -7,7 +7,13 @@
 
 import UIKit
 
-class PreviewWeatherViewController: UIViewController {
+protocol AnyPreviewWeatherView: AnyObject {
+    var presenter: AnyPreviewWeatherPresenter? { get set }
+}
+
+class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
+    
+    var presenter: AnyPreviewWeatherPresenter?
     
     lazy var tempLabel: UILabel = {
         let lbl = UILabel()
@@ -81,13 +87,13 @@ class PreviewWeatherViewController: UIViewController {
     
     func configWeather(data: HourlyForecastEntity) {
         let minMaxAndIcon = WeatherUtils.shared.checkUniqueForecastDays(model: data)
-        let tempMin = minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius() ?? 0
-        let tempMax = minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius() ?? 0
+        let tempMin = Int(floor(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius() ?? 0))
+        let tempMax = Int(ceil(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius() ?? 0))
         
         let cityName = data.city?.name ?? "No name"
         let descriptionTemp = data.list?[0].weather?[0].tempDescription ?? "No desc"
         let icon = data.list?[0].weather?[0].icon ?? ""
-        let currentTemp = data.list?[0].main?.temp?.kelvinToCelsius() ?? 0
+        let currentTemp = Int(floor(data.list?[0].main?.temp?.kelvinToCelsius() ?? 0))
 
         cityLabel.text = cityName
         minTemperature.text = String(tempMin).prefix(2) + "°C"
