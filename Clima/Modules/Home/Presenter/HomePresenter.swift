@@ -90,7 +90,7 @@ class HomePresenter: AnyHomePresenter {
         switch result {
         case .success(let success):
             // update daily forecast
-            let result = interactor.checkUniqueForecastDays(model: success)
+            let result = WeatherUtils.shared.checkUniqueForecastDays(model: success)
             if let weekDays = convertDateToDictWeekdays(dict: result) {
                 let keys = getForecastKeyDays(result: result).sorted()
                 

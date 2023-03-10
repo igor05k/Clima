@@ -24,8 +24,6 @@ enum AutoCompleteErrors: LocalizedError {
     }
 }
 
-// https://api.openweathermap.org/data/2.5/forecast?q=Sao%20Paulo&cnt=8&appid=07654e4f64da69e379560cfdda5dbe99
-
 enum GMapsAPIConstants: String {
     case api_key = "AIzaSyD3vEKNHYWR11ulJD5302X7WDXufBKyrOU"
 }
@@ -41,10 +39,8 @@ class AddNewLocationInteractor: AnyAddNewLocationInteractor {
     
     func fetchWeatherForecast(for city: String) {
         guard let cityTrimmed = city.components(separatedBy: ",").first?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-        
-        guard let cityEncoded = cityTrimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
 
-        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?q=\(cityEncoded)" + "&cnt=8&appid=" + APIConfig.api_key.rawValue
+        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?q=\(cityTrimmed)" + "&cnt=8&appid=" + APIConfig.api_key.rawValue
 
         guard let url = URL(string: urlString) else { return }
 

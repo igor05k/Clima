@@ -44,7 +44,7 @@ class AddNewLocationPresenter: AnyAddNewLocationPresenter {
     func didFetchWeatherForecast(for city: Result<HourlyForecastEntity, Error>) {
         switch city {
         case .success(let success):
-            print(success)
+            router.goToPreviewCityWeather(data: success)
         case .failure(let failure):
             print(failure)
         }

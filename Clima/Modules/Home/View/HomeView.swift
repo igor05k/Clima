@@ -166,7 +166,7 @@ class HomeView: UIViewController, AnyHomeView {
             
             let temp = self?.presenter?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
             
-            let desc = weatherInfo.weather?[0].description?.capitalized
+            let desc = weatherInfo.weather?[0].tempDescription?.capitalized
             let icon = weatherInfo.weather?[0].icon
             
             if let url = URL(string: "http://openweathermap.org/img/w/\(icon ?? "").png") {

@@ -79,20 +79,22 @@ class PreviewWeatherViewController: UIViewController {
         setTempIcon()
     }
     
-    func configWeather(data: CurrentWeatherEntity) {
-        let tempMin = data.main?.tempMin ?? 0
-        let tempMax = data.main?.tempMax ?? 0
-        let temp = data.main?.temp ?? 0
-        let cityName = data.name ?? "No data"
-        let descriptionTemp = data.weather?[0].description ?? "No description"
-        let icon = data.weather?[0].icon ?? ""
+    func configWeather(data: HourlyForecastEntity) {
+        let minMaxAndIcon = WeatherUtils.shared.checkUniqueForecastDays(model: data)
+        let tempMin = minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius() ?? 0
+        let tempMax = minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius() ?? 0
         
+        let cityName = data.city?.name ?? "No name"
+        let descriptionTemp = data.list?[0].weather?[0].tempDescription ?? "No desc"
+        let icon = data.list?[0].weather?[0].icon ?? ""
+        let currentTemp = data.list?[0].main?.temp?.kelvinToCelsius() ?? 0
+
         cityLabel.text = cityName
-        minTemperature.text = String(tempMin - 273.15).prefix(2) + "°C"
-        maxTemperature.text = String(tempMax - 273.15).prefix(2) + "°C"
-        tempLabel.text = String(temp - 273.15).prefix(2) + "°C"
+        minTemperature.text = String(tempMin).prefix(2) + "°C"
+        maxTemperature.text = String(tempMax).prefix(2) + "°C"
+        tempLabel.text = String(currentTemp).prefix(2) + "°C"
         tempDescriptionLabel.text = descriptionTemp.capitalized
-        
+
         if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
             temperatureIcon.downloadImage(from: url)
         }
