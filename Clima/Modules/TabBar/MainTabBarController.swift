@@ -11,10 +11,10 @@ class MainTabBarController: UITabBarController {
     override func setViewControllers(_ viewControllers: [UIViewController]?, animated: Bool) {
         super.setViewControllers(viewControllers, animated: animated)
         
-        tabBar.tintColor = .white
+        tabBar.tintColor = .black
 //        tabBar.unselectedItemTintColor = .yellow
         tabBar.isTranslucent = false
-        tabBar.backgroundColor = .lightText
+        tabBar.backgroundColor = .white
     }
 }
 

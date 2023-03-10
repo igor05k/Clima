@@ -57,17 +57,4 @@ class AddNewLocationPresenter: AnyAddNewLocationPresenter {
     func fetchWeatherData(for city: String) {
         interactor.fetchWeatherForecast(for: city)
     }
-    
-//    func fetchWeatherData(for city: String) {
-//        interactor.fetchWeather(for: city) { [weak self] result in
-//            switch result {
-//            case .success(let success):
-//                DispatchQueue.main.async {
-//                    self?.router.goToPreviewCityWeather(data: success)
-//                }
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
-//    }
 }

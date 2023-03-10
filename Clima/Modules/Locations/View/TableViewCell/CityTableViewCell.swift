@@ -28,8 +28,17 @@ class CityTableViewCell: UITableViewCell {
         tempIcon.image = UIImage(named: "10d")
     }
     
-    func configLabels() {
+    private func configLabels() {
         cityTemp.font = .systemFont(ofSize: 42, weight: .bold)
         cityName.font = .systemFont(ofSize: 30, weight: .medium)
+    }
+    
+    func setupCell(data: CityInfo) {
+        cityTemp.text = String(data.temp) + "°C"
+        cityName.text = data.name
+        
+        if let url = URL(string: "http://openweathermap.org/img/w/\(data.icon).png") {
+            tempIcon.downloadImage(from: url)
+        }
     }
 }
