@@ -5,12 +5,20 @@
 //  Created by Igor Fernandes on 02/03/23.
 //
 
-import Foundation
+import UIKit
 
 protocol AnyAddNewLocationRouter: AnyObject {
-    var view: AnyAddNewLocationView? { get set }
+    var view: AddNewLocationView? { get set }
+    func goToPreviewCityWeather(data: CurrentWeatherEntity)
 }
 
 class AddNewLocationRouter: AnyAddNewLocationRouter {
-    var view: AnyAddNewLocationView?
+    var view: AddNewLocationView?
+    
+    func goToPreviewCityWeather(data: CurrentWeatherEntity) {
+        let previewWeatherVC = PreviewWeatherViewController()
+        previewWeatherVC.configWeather(data: data)
+        let navigation = UINavigationController(rootViewController: previewWeatherVC)
+        view?.present(navigation, animated: true)
+    }
 }

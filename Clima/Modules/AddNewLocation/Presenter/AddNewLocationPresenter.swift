@@ -11,9 +11,12 @@ protocol AnyAddNewLocationPresenter: AnyObject {
     var view: AnyAddNewLocationView? { get set }
     var interactor: AnyAddNewLocationInteractor { get set }
     var router: AddNewLocationRouter { get set }
-    
-    func searchFor(userInput term: String, completion: (() -> Void)?)
+
+    func searchFor(userInput term: String)
     func fetchWeatherData(for city: String)
+    
+    func didFetchSuggestions(with result: Result<AutoComplete, AutoCompleteErrors>)
+    func didFetchWeatherForecast(for city: Result<HourlyForecastEntity, Error>)
 }
 
 class AddNewLocationPresenter: AnyAddNewLocationPresenter {
@@ -27,28 +30,44 @@ class AddNewLocationPresenter: AnyAddNewLocationPresenter {
         self.router = router
     }
     
-    func fetchWeatherData(for city: String) {
-        interactor.fetchWeather(for: city) { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure   )
+    func didFetchSuggestions(with result: Result<AutoComplete, AutoCompleteErrors>) {
+        switch result {
+        case .success(let success):
+            if let predict = success.predictions {
+                view?.updateCitiesSuggestions(predictions: predict)
             }
+        case .failure(let failure):
+            print(failure)
         }
     }
     
-    func searchFor(userInput term: String, completion: (() -> Void)?) {
-        interactor.getAutocompleteResults(for: term) { [weak self] result in
-            switch result {
-            case .success(let success):
-                if let suggestions = success.predictions {
-                    self?.view?.updateCitiesSuggestions(predictions: suggestions)
-                    completion?()
-                }
-            case .failure(let failure):
-                print(failure)
-            }
+    func didFetchWeatherForecast(for city: Result<HourlyForecastEntity, Error>) {
+        switch city {
+        case .success(let success):
+            print(success)
+        case .failure(let failure):
+            print(failure)
         }
     }
+    
+    func searchFor(userInput term: String) {
+        interactor.getAutocompleteResults(for: term)
+    }
+    
+    func fetchWeatherData(for city: String) {
+        interactor.fetchWeatherForecast(for: city)
+    }
+    
+//    func fetchWeatherData(for city: String) {
+//        interactor.fetchWeather(for: city) { [weak self] result in
+//            switch result {
+//            case .success(let success):
+//                DispatchQueue.main.async {
+//                    self?.router.goToPreviewCityWeather(data: success)
+//                }
+//            case .failure(let failure):
+//                print(failure)
+//            }
+//        }
+//    }
 }

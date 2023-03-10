@@ -25,10 +25,6 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
         return searchBarItem
     }()
     
-    @objc func didTapSearch() {
-        print(#function)
-    }
-    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +38,13 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
     
     func updateCitiesSuggestions(predictions: [Prediction]) {
         self.predictions = predictions
+        
+        DispatchQueue.main.async { [weak self] in
+            if let self {
+                let resultController = self.searchBarController.searchResultsController as? SearchResultsViewController
+                resultController?.predictions = self.predictions
+            }
+        }
     }
 }
 
@@ -58,9 +61,7 @@ extension AddNewLocationView: UISearchResultsUpdating {
         
         if let searchBarText = searchBarController.searchBar.text {
             if !searchBarText.hasPrefix(" ") && searchBarText.count > 0 {
-                presenter?.searchFor(userInput: searchBarText) {
-                    resultController?.predictions = self.predictions
-                }
+                presenter?.searchFor(userInput: searchBarText)
             }
         }
     }
