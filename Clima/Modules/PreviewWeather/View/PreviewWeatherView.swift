@@ -87,12 +87,34 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
         setTempIcon()
     }
     
+    func checkForMaxAndMin(_ minMaxAndIcon: [String : (tempMin: Double, tempMax: Double, icon: String)], _ calendar: Calendar) {
+        if let temp = minMaxAndIcon[WeatherUtils.shared.currentDate] {
+            let min = Int(floor(temp.tempMin.kelvinToCelsius()))
+            let max = Int(floor(temp.tempMax.kelvinToCelsius()))
+            
+            minTemperature.text = String(min).prefix(2) + "°C"
+            maxTemperature.text = String(max).prefix(2) + "°C"
+        } else {
+            guard let tomorrow = calendar.date(byAdding: .hour, value: 6, to: Date()) else { return }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            
+            let currentDateString = formatter.string(from: tomorrow)
+            let tempMin = Int(floor(minMaxAndIcon[currentDateString]?.tempMin.kelvinToCelsius() ?? 0))
+            let tempMax = Int(floor(minMaxAndIcon[currentDateString]?.tempMax.kelvinToCelsius() ?? 0))
+            minTemperature.text = String(tempMin).prefix(2) + "°C"
+            maxTemperature.text = String(tempMax).prefix(2) + "°C"
+        }
+    }
+    
     func configWeather(data: HourlyForecastEntity) {
         self.data = data
         
+        let calendar = Calendar.current
         let minMaxAndIcon = WeatherUtils.shared.checkUniqueForecastDays(model: data)
-        let tempMin = Int(floor(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius() ?? 0))
-        let tempMax = Int(ceil(minMaxAndIcon[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius() ?? 0))
+        
+        checkForMaxAndMin(minMaxAndIcon, calendar)
         
         let cityName = data.city?.name ?? "No name"
         let descriptionTemp = data.list?[0].weather?[0].tempDescription ?? "No desc"
@@ -100,8 +122,6 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
         let currentTemp = Int(floor(data.list?[0].main?.temp?.kelvinToCelsius() ?? 0))
         
         cityLabel.text = cityName
-        minTemperature.text = String(tempMin).prefix(2) + "°C"
-        maxTemperature.text = String(tempMax).prefix(2) + "°C"
         tempLabel.text = String(currentTemp).prefix(2) + "°C"
         tempDescriptionLabel.text = descriptionTemp.capitalized
         
