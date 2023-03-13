@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="146" id="KGk-i7-Jjw" customClass="AdditionalInfoCardTableViewCell" customModule="Clima" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="361" height="146"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="361" height="146"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbP-4G-DgT" userLabel="Container">
+                        <rect key="frame" x="0.0" y="0.0" width="361" height="146"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Rf3-zy-KE5" userLabel="Major Stack View">
+                                <rect key="frame" x="0.0" y="0.0" width="361" height="146"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="a4l-nb-MnW" userLabel="Wind Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="120.33333333333333" height="146"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzV-6C-xnd" userLabel="Wind Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rak-ND-4Ew" userLabel="WindValue Label">
+                                                <rect key="frame" x="0.0" y="73" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="z1e-i0-KGp" userLabel="FeelsLike Stack View">
+                                        <rect key="frame" x="120.33333333333334" y="0.0" width="120.33333333333334" height="146"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxG-IQ-55B" userLabel="FeelsLike Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-Y7-CbU" userLabel="FeelsLikeValue Label">
+                                                <rect key="frame" x="0.0" y="73" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="HHa-e0-5lP" userLabel="Visibility Stack View">
+                                        <rect key="frame" x="240.66666666666666" y="0.0" width="120.33333333333334" height="146"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhV-1P-TYR" userLabel="Visibility Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgA-v4-0NN" userLabel="VisibilityValue Label">
+                                                <rect key="frame" x="0.0" y="73" width="120.33333333333333" height="73"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                        <constraints>
+                            <constraint firstItem="Rf3-zy-KE5" firstAttribute="leading" secondItem="hbP-4G-DgT" secondAttribute="leading" id="Hen-vg-iqq"/>
+                            <constraint firstAttribute="trailing" secondItem="Rf3-zy-KE5" secondAttribute="trailing" id="L0O-Mw-Cbw"/>
+                            <constraint firstAttribute="bottom" secondItem="Rf3-zy-KE5" secondAttribute="bottom" id="LPN-HG-SMH"/>
+                            <constraint firstItem="Rf3-zy-KE5" firstAttribute="top" secondItem="hbP-4G-DgT" secondAttribute="top" id="hzp-fF-2uv"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hbP-4G-DgT" secondAttribute="trailing" id="4Mk-Kt-pru"/>
+                    <constraint firstItem="hbP-4G-DgT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9BN-Xp-Zwl"/>
+                    <constraint firstItem="hbP-4G-DgT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="OBp-Mh-qtH"/>
+                    <constraint firstAttribute="bottom" secondItem="hbP-4G-DgT" secondAttribute="bottom" id="sev-Q6-dpB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="feelsLikeLabel" destination="YxG-IQ-55B" id="GLV-CE-GoQ"/>
+                <outlet property="feelsLikeStackView" destination="z1e-i0-KGp" id="291-ff-YvP"/>
+                <outlet property="feelsLikeValueLabel" destination="xfb-Y7-CbU" id="AYq-e0-TWC"/>
+                <outlet property="majorStackView" destination="Rf3-zy-KE5" id="HPk-Sm-Pdz"/>
+                <outlet property="outerContainerView" destination="hbP-4G-DgT" id="42S-uT-9lb"/>
+                <outlet property="visibilityLabel" destination="nhV-1P-TYR" id="cnN-OH-ITk"/>
+                <outlet property="visibilityStackView" destination="HHa-e0-5lP" id="rXy-12-ONs"/>
+                <outlet property="visibilityValueLabel" destination="GgA-v4-0NN" id="JQY-xB-Q1T"/>
+                <outlet property="windLabel" destination="dzV-6C-xnd" id="yUo-PP-ypp"/>
+                <outlet property="windStackView" destination="a4l-nb-MnW" id="hcm-Du-Sr2"/>
+                <outlet property="windValueLabel" destination="rak-ND-4Ew" id="7eA-2j-SV5"/>
+            </connections>
+            <point key="canvasLocation" x="165.38461538461539" y="56.872037914691937"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

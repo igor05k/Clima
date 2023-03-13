@@ -9,6 +9,8 @@ import UIKit
 
 protocol AnyLocationsRouter {
     var view: LocationsView? { get set }
+    
+    func goToDetails()
 }
 
 class LocationsRouter: AnyLocationsRouter {
@@ -25,5 +27,10 @@ class LocationsRouter: AnyLocationsRouter {
         interactor.presenter = presenter
         
         return view
+    }
+    
+    func goToDetails() {
+        let controller = WeatherDetailsBuilder.build()
+        view?.navigationController?.pushViewController(controller, animated: true)
     }
 }
