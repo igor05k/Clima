@@ -24,8 +24,14 @@ class CityTableViewCell: UITableViewCell {
         configLabels()
         
         cityTemp.text = "25°"
+        cityTemp.textColor = .labelColor
+        
         cityName.text = "São Paulo"
+        cityName.textColor = .labelColor
+        
         tempIcon.image = UIImage(named: "10d")
+        
+        backgroundColor = .backgroundColor
     }
     
     private func configLabels() {

@@ -26,7 +26,7 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         barChartView.delegate = self
-        
+        barChartView.noDataText = "No data available"
         addSubview(barChartView)
     }
     
@@ -38,6 +38,9 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
         super.layoutSubviews()
         
         barChartView.frame = bounds
+        barChartView.backgroundColor = .backgroundCell
+        barChartView.leftAxis.labelTextColor = .labelColor
+        barChartView.legend.textColor = .labelColor
     }
     
     /// converts "yyyy-MM-dd HH:mm:ss" to "HH:mm"
@@ -58,7 +61,7 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
         // pegar os valores de pop e hour
         if let list = data.list {
             let xAxis = barChartView.xAxis
-
+            
             var entries = [BarChartDataEntry]()
             var hours = [String]()
             
@@ -77,9 +80,11 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
             xAxis.granularity = 1
             xAxis.labelCount = entries.count
             xAxis.labelPosition = .bottom
+            xAxis.labelTextColor = .labelColor
             
             let dataSet = BarChartDataSet(entries: entries, label: "Pop")
             dataSet.valueFont = UIFont.systemFont(ofSize: 14)
+            dataSet.valueTextColor = .labelColor
             dataSet.colors = colors
             
             let data = BarChartData(dataSet: dataSet)

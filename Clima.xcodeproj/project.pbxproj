@@ -288,16 +288,6 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		8242A28E29AA435E000CF4F8 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */,
-				8242A29129AA488B000CF4F8 /* UIColor+.swift */,
-			);
-			name = Extensions;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		8242A29529AA5029000CF4F8 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +351,8 @@
 			children = (
 				826B5E8329BB6776009EBF01 /* Double+.swift */,
 				82ACEEC729BFAE42005732A7 /* Int+.swift */,
+				8242A29129AA488B000CF4F8 /* UIColor+.swift */,
+				8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -534,7 +526,6 @@
 				826B5E8229BB6749009EBF01 /* Extensions */,
 				826B5E7F29BB5DDD009EBF01 /* Helpers */,
 				8216A84E29B132DC00753815 /* Modules */,
-				8242A28E29AA435E000CF4F8 /* Extensions */,
 				82AE2C4129A833EB005FC00A /* Info.plist */,
 				82AE2C4D29A834CC005FC00A /* Resources */,
 				826B5E8529BB7CA8009EBF01 /* CityEntity.xcdatamodeld */,
@@ -622,7 +613,6 @@
 				2B42C808BFBBD3939E058FEB /* Pods-Clima.debug.xcconfig */,
 				6194A6C3939B819C3FB4AC65 /* Pods-Clima.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

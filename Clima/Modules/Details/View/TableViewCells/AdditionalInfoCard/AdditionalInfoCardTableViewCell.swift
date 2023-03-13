@@ -39,8 +39,16 @@ class AdditionalInfoCardTableViewCell: UITableViewCell {
     
     func defaultConfigForVisualElements() {
         windLabel.text = "Wind"
+        windLabel.textColor = .labelColor
+        windValueLabel.textColor = .labelColor
+        
         feelsLikeLabel.text = "Feels Like"
+        feelsLikeLabel.textColor = .labelColor
+        feelsLikeValueLabel.textColor = .labelColor
+        
         visibilityLabel.text = "Visibility"
+        visibilityLabel.textColor = .labelColor
+        visibilityValueLabel.textColor = .labelColor
     }
     
     func setupCell(city: HourlyForecastEntity) {

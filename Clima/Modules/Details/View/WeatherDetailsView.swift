@@ -33,11 +33,19 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
         view.backgroundColor = .backgroundColor
         configTableView()
         configTableViewConstraints()
+        
+        let appearance = UINavigationBarAppearance(idiom: .phone)
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.backgroundColor = .backgroundColor
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
     }
     
     lazy var cityLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Guarulhos"
+        lbl.textColor = .labelColor
         lbl.font = .systemFont(ofSize: 26, weight: .regular)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -46,6 +54,7 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
     lazy var tempLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "26°C"
+        lbl.textColor = .labelColor
         lbl.font = .systemFont(ofSize: 42, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -116,8 +125,12 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
             }
             
             config.textProperties.font = .systemFont(ofSize: 46, weight: .semibold)
-            cell.contentConfiguration = config
+            config.textProperties.color = .labelColor
             
+            cell.contentConfiguration = config
+            cell.layer.cornerRadius = 10
+            
+            cell.backgroundColor = .backgroundCell
             return cell
         case Sections.hourlyForecast.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell() }
@@ -126,6 +139,7 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
                 cell.configureElements(model: hourlyForecastInfo)
             }
             
+            cell.backgroundColor = .backgroundCell
             return cell
         case Sections.infoCard.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AdditionalInfoCardTableViewCell.identifier, for: indexPath) as? AdditionalInfoCardTableViewCell else { return UITableViewCell() }
@@ -134,6 +148,7 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
                 cell.setupCell(city: hourlyForecastInfo)
             }
             
+            cell.backgroundColor = .backgroundCell
             return cell
         case Sections.rainProbability.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RainProbabilityTableViewCell.identifier, for: indexPath) as? RainProbabilityTableViewCell else { return UITableViewCell() }
@@ -142,6 +157,7 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
                 cell.setupCell(with: hourlyForecastInfo)
             }
             
+            cell.layer.cornerRadius = 10
             return cell
         default:
             return UITableViewCell()

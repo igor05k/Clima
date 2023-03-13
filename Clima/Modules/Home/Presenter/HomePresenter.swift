@@ -34,7 +34,7 @@ class HomePresenter: AnyHomePresenter {
         self.interactor = interactor
         self.router = router
         
-//        interactor.fetchUserLocation()
+        interactor.fetchUserLocation()
     }
     
     func didTapAddNewLocation() {

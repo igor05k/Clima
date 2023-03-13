@@ -29,10 +29,17 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
         configVisualElements()
         selectionStyle = .none
         backgroundColor = .backgroundColor
+        
         dayOfTheWeekLbl.text = "Sunday"
+        dayOfTheWeekLbl.textColor = .labelColor
+        
         weatherIconImageView.image = UIImage(named: "10d")
+        
         maxTempLbl.text = "26°"
+        maxTempLbl.textColor = .labelColor
+        
         minTempLbl.text = "20°"
+        minTempLbl.textColor = .labelColor
     }
     
     func configVisualElements() {

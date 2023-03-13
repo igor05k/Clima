@@ -66,6 +66,7 @@ class HomeView: UIViewController, AnyHomeView {
         city.text = "São Paulo"
         city.textAlignment = .center
         city.numberOfLines = 1
+        city.textColor = .labelColor
         city.font = .systemFont(ofSize: 20, weight: .bold)
         city.translatesAutoresizingMaskIntoConstraints = false
         return city
@@ -84,6 +85,7 @@ class HomeView: UIViewController, AnyHomeView {
     lazy var temperatureLabel: UILabel = {
         let temp = UILabel()
         temp.text = "26°"
+        temp.textColor = .labelColor
         temp.textAlignment = .center
         temp.numberOfLines = 1
         temp.font = .systemFont(ofSize: 46, weight: .medium)
@@ -102,6 +104,7 @@ class HomeView: UIViewController, AnyHomeView {
     lazy var tempDescription: UILabel = {
         let desc = UILabel()
         desc.text = "Scattered rain"
+        desc.textColor = .labelColor
         desc.textAlignment = .center
         desc.numberOfLines = 1
         desc.font = .systemFont(ofSize: 20, weight: .medium)
@@ -122,6 +125,7 @@ class HomeView: UIViewController, AnyHomeView {
     lazy var minTemperature: UILabel = {
         let minTemp = UILabel()
         minTemp.text = "20°"
+        minTemp.textColor = .labelColor
         minTemp.translatesAutoresizingMaskIntoConstraints = false
         return minTemp
     }()
@@ -129,6 +133,7 @@ class HomeView: UIViewController, AnyHomeView {
     lazy var maxTemperature: UILabel = {
         let maxTemp = UILabel()
         maxTemp.text = "29°"
+        maxTemp.textColor = .labelColor
         maxTemp.translatesAutoresizingMaskIntoConstraints = false
         return maxTemp
     }()
@@ -142,6 +147,7 @@ class HomeView: UIViewController, AnyHomeView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .backgroundColor
         tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
         tableView.register(DaysOfTheWeekTableViewCell.nib(), forCellReuseIdentifier: DaysOfTheWeekTableViewCell.identifier)
     }

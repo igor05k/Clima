@@ -26,11 +26,13 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell {
     
     func setupCell(label: String, icon: String, tempLabel: String) {
         timeLabel.text = label
+        timeLabel.textColor = .labelColor
         
         if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
             weatherIconImageView.downloadImage(from: url)
         }
         
         temperatureLabel.text = tempLabel
+        temperatureLabel.textColor = .labelColor
     }
 }
