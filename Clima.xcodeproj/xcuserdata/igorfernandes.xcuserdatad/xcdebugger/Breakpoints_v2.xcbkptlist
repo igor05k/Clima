@@ -322,53 +322,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "94177F77-6381-41B8-8C9E-2B3DE000BBDF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Clima/Modules/PreviewWeather/View/PreviewWeatherView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "saveCity()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "94177F77-6381-41B8-8C9E-2B3DE000BBDF - a3be18019c283bf0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.PreviewWeatherViewController.saveCity() -&gt; ()"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/PreviewWeather/View/PreviewWeatherView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "2353">
-               </Location>
-               <Location
-                  uuid = "94177F77-6381-41B8-8C9E-2B3DE000BBDF - a3be18019c283bf0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Clima.PreviewWeatherViewController.saveCity() -&gt; ()"
-                  moduleName = "Clima"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/igorfernandes/Desktop/Developer/Swift/Clima/Clima/Modules/PreviewWeather/View/PreviewWeatherView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "2843">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

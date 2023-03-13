@@ -138,6 +138,10 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
         case Sections.rainProbability.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RainProbabilityTableViewCell.identifier, for: indexPath) as? RainProbabilityTableViewCell else { return UITableViewCell() }
             
+            if let hourlyForecastInfo {
+                cell.setupCell(with: hourlyForecastInfo)
+            }
+            
             return cell
         default:
             return UITableViewCell()

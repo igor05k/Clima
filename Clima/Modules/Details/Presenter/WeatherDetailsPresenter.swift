@@ -25,7 +25,7 @@ class WeatherDetailsPresenter: AnyWeatherDetailsPresenter {
         self.router = router
         self.interacotr = interacotr
         
-//        interacotr.getHourlyForecast(lat: city.lat, lon: city.lon)
+        interacotr.getHourlyForecast(lat: city.lat, lon: city.lon)
     }
     
     // update view

@@ -12,6 +12,14 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
     
     let barChartView = BarChartView()
     
+    let colors: [UIColor] = [
+        UIColor(red: 0.506, green: 0.212, blue: 0.729, alpha: 1.0), // #8136BA
+        UIColor(red: 0.329, green: 0.141, blue: 0.478, alpha: 1.0), // #55237A
+        UIColor(red: 0.678, green: 0.282, blue: 0.980, alpha: 1.0), // #AD48FA
+        UIColor(red: 0.161, green: 0.067, blue: 0.231, alpha: 1.0), // #29113B
+        UIColor(red: 0.608, green: 0.255, blue: 0.878, alpha: 1.0)  // #9B41E0
+    ]
+    
     static let identifier: String = String(describing: RainProbabilityTableViewCell.self)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -19,9 +27,7 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
         
         barChartView.delegate = self
         
-//        setChartConstraints()
         addSubview(barChartView)
-        configChart()
     }
     
     required init?(coder: NSCoder) {
@@ -34,37 +40,50 @@ class RainProbabilityTableViewCell: UITableViewCell, ChartViewDelegate {
         barChartView.frame = bounds
     }
     
-    func setChartConstraints() {
-        addSubview(barChartView)
+    /// converts "yyyy-MM-dd HH:mm:ss" to "HH:mm"
+    private func formattedHour(_ hour: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        NSLayoutConstraint.activate([
-            barChartView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            barChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            barChartView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            barChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        if let date = dateFormatter.date(from: hour) {
+            dateFormatter.dateFormat = "HH:mm"
+            let time = dateFormatter.string(from: date)
+            return time
+        }
+        
+        return nil
     }
     
-    private func configChart() {
-        // Criando os dados fictícios
-        let months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"]
-        let sales = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0]
+    func setupCell(with data: HourlyForecastEntity) {
+        // pegar os valores de pop e hour
+        if let list = data.list {
+            let xAxis = barChartView.xAxis
 
-        // Criando um array de objetos BarChartDataEntry com os dados
-        var entries = [BarChartDataEntry]()
-        for i in 0..<months.count {
-            let entry = BarChartDataEntry(x: Double(i), y: sales[i])
-            entries.append(entry)
+            var entries = [BarChartDataEntry]()
+            var hours = [String]()
+            
+            for (index, value) in list.enumerated() {
+                let pop = value.pop ?? 0
+                let hour = value.dtTxt ?? ""
+                
+                if let formattedHour = formattedHour(hour) {
+                    hours.append(formattedHour)
+                }
+                
+                entries.append(BarChartDataEntry(x: Double(index), y: pop))
+            }
+            
+            xAxis.valueFormatter = IndexAxisValueFormatter(values: hours)
+            xAxis.granularity = 1
+            xAxis.labelCount = entries.count
+            xAxis.labelPosition = .bottom
+            
+            let dataSet = BarChartDataSet(entries: entries, label: "Pop")
+            dataSet.valueFont = UIFont.systemFont(ofSize: 14)
+            dataSet.colors = colors
+            
+            let data = BarChartData(dataSet: dataSet)
+            barChartView.data = data
         }
-
-        // Criando um objeto BarChartDataSet com o array de dados
-        let dataSet = BarChartDataSet(entries: entries, label: "Vendas")
-
-        // Personalizando as cores das barras
-        dataSet.colors = ChartColorTemplates.joyful()
-
-        // Criando um objeto BarChartData com o objeto dataSet
-        let data = BarChartData(dataSet: dataSet)
-        barChartView.data = data
     }
 }
