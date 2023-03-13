@@ -80,6 +80,7 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
         
         tableView.register(HourlyForecastTableViewCell.nib(), forCellReuseIdentifier: HourlyForecastTableViewCell.identifier)
         tableView.register(AdditionalInfoCardTableViewCell.nib(), forCellReuseIdentifier: AdditionalInfoCardTableViewCell.identifier)
+        tableView.register(RainProbabilityTableViewCell.self, forCellReuseIdentifier: RainProbabilityTableViewCell.identifier)
     }
     
     func configTableViewConstraints() {
@@ -134,6 +135,10 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
             }
             
             return cell
+        case Sections.rainProbability.rawValue:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RainProbabilityTableViewCell.identifier, for: indexPath) as? RainProbabilityTableViewCell else { return UITableViewCell() }
+            
+            return cell
         default:
             return UITableViewCell()
         }
@@ -155,6 +160,8 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
             return 150
         case Sections.infoCard.rawValue:
             return 100
+        case Sections.rainProbability.rawValue:
+            return 300
         default:
             return 100
         }
