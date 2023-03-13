@@ -134,7 +134,10 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
         let cityName = data?.city?.name ?? "No name"
         let currentTemp = Int(floor(data?.list?[0].main?.temp?.kelvinToCelsius() ?? 0))
         let icon = data?.list?[0].weather?[0].icon ?? ""
-        let city = CityInfo(name: cityName, temp: currentTemp, icon: icon)
+        let lat = data?.city?.coord?.lat ?? 0
+        let long = data?.city?.coord?.lon ?? 0
+        
+        let city = CityInfo(name: cityName, temp: currentTemp, icon: icon, lat: lat, lon: long)
         presenter?.didTapSaveCity(data: city)
     }
 }

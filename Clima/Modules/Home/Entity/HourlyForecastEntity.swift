@@ -17,7 +17,13 @@ struct HourlyForecastEntity: Codable {
 struct City: Codable {
     let id: Int?
     let name: String?
+    let coord: Coord?
     let country: String?
+}
+
+// MARK: - Coord
+struct Coord: Codable {
+    let lat, lon: Double?
 }
 
 // MARK: - List

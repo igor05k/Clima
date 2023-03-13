@@ -30,8 +30,10 @@ class LocationsInteractor: AnyLocationsInteractor {
                 for result in results {
                     if let name = result.value(forKey: "name") as? String,
                        let temp = result.value(forKey: "temperature") as? Int,
-                       let icon = result.value(forKey: "icon") as? String {
-                        list.append(CityInfo(name: name, temp: temp, icon: icon))
+                       let icon = result.value(forKey: "icon") as? String,
+                       let lat = result.value(forKey: "lat") as? Double,
+                       let lon = result.value(forKey: "lon") as? Double {
+                        list.append(CityInfo(name: name, temp: temp, icon: icon, lat: lat, lon: lon))
                     }
                 }
                 
@@ -55,9 +57,11 @@ class LocationsInteractor: AnyLocationsInteractor {
                 for result in results {
                     if let name = result.value(forKey: "name") as? String,
                        let temp = result.value(forKey: "temperature") as? Int,
-                       let icon = result.value(forKey: "icon") as? String {
+                       let icon = result.value(forKey: "icon") as? String,
+                       let lat = result.value(forKey: "lat") as? Double,
+                       let lon = result.value(forKey: "lon") as? Double {
                         
-                        if name == item.name && temp == item.temp && icon == item.icon {
+                        if name == item.name && temp == item.temp && icon == item.icon && item.lat == lat && item.lon == lon {
                             context.delete(result)
                             presenter?.didDeleteItem(id: id)
                         }

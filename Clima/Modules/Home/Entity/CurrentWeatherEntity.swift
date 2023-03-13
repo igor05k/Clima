@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - HomeEntity
 struct CurrentWeatherEntity: Codable {
     let base: String?

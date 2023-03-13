@@ -11,4 +11,6 @@ struct CityInfo {
     let name: String
     let temp: Int
     let icon: String
+    let lat: Double
+    let lon: Double
 }

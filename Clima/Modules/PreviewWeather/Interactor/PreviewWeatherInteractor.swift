@@ -27,6 +27,8 @@ class PreviewWeatherInteractor: AnyPreviewWeatherInteractor {
             object.setValue(data.name, forKey: "name")
             object.setValue(data.temp, forKey: "temperature")
             object.setValue(data.icon, forKey: "icon")
+            object.setValue(data.lat, forKey: "lat")
+            object.setValue(data.lon, forKey: "lon")
             
             do {
                 try context.save()

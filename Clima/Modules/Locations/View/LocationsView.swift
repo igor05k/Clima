@@ -34,11 +34,6 @@ class LocationsView: UIViewController, AnyLocationsView {
         presenter?.fetchData()
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        navigationController?.navigationBar.prefersLargeTitles = false
-//    }
-    
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +82,7 @@ extension LocationsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print(cities[indexPath.row])
         presenter?.didTapCityDetails()
     }
     
