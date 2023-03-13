@@ -32,5 +32,25 @@ class AdditionalInfoCardTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        defaultConfigForVisualElements()
+        
+        layer.cornerRadius = 10
+    }
+    
+    func defaultConfigForVisualElements() {
+        windLabel.text = "Wind"
+        feelsLikeLabel.text = "Feels Like"
+        visibilityLabel.text = "Visibility"
+    }
+    
+    func setupCell(city: HourlyForecastEntity) {
+        let windSpeed = city.list?[0].wind?.speed ?? 0
+        windValueLabel.text = String(windSpeed).prefix(4) + "m/s"
+        
+        let feelsLike = city.list?[0].main?.feelsLike ?? 0
+        feelsLikeValueLabel.text = String(Int(feelsLike)).prefix(2) + "°C"
+        
+        let visib = city.list?[0].visibility?.metersToKm() ?? 0
+        visibilityValueLabel.text = String(visib) + "km"
     }
 }

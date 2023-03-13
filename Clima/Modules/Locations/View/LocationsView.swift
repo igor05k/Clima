@@ -78,12 +78,12 @@ extension LocationsView: UITableViewDelegate, UITableViewDataSource {
         return cities.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 150 }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 130 }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(cities[indexPath.row])
-        presenter?.didTapCityDetails()
+        let cityChosen = cities[indexPath.row]
+        presenter?.didTapCityDetails(city: cityChosen)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

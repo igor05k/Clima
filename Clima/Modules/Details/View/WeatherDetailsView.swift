@@ -9,6 +9,8 @@ import UIKit
 
 protocol AnyWeatherDetailsView: AnyObject {
     var presenter: AnyWeatherDetailsPresenter? { get set }
+    
+    func updateView(with cityInfo: HourlyForecastEntity)
 }
 
 enum Sections: Int {
@@ -21,6 +23,17 @@ enum Sections: Int {
 
 class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
     var presenter: AnyWeatherDetailsPresenter?
+    
+    private var hourlyForecastInfo: HourlyForecastEntity?
+   
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .backgroundColor
+        configTableView()
+        configTableViewConstraints()
+    }
     
     lazy var cityLabel: UILabel = {
         let lbl = UILabel()
@@ -44,19 +57,6 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
         return table
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemYellow
-
-        configTableView()
-        configTableViewConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        title = "São Paulo"
-    }
-    
     func setTempLabelConstraints() {
         view.addSubview(tempLabel)
         
@@ -73,7 +73,7 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.separatorStyle = .none
+        tableView.backgroundColor = .backgroundColor
         
         // generic cell for text
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -92,6 +92,13 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    func updateView(with cityInfo: HourlyForecastEntity) {
+        DispatchQueue.main.async { [weak self] in
+            self?.hourlyForecastInfo = cityInfo
+            self?.tableView.reloadData()
+        }
+    }
 }
 
 extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
@@ -102,22 +109,38 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
             
             cell.selectionStyle = .none
             var config = cell.defaultContentConfiguration()
-            config.text = "26°C"
+            
+            if let hourlyForecastInfo {
+                config.text = String(Int(hourlyForecastInfo.list?[0].main?.temp?.kelvinToCelsius() ?? 0)).prefix(2) + "°C"
+            }
+            
             config.textProperties.font = .systemFont(ofSize: 46, weight: .semibold)
             cell.contentConfiguration = config
             
             return cell
         case Sections.hourlyForecast.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HourlyForecastTableViewCell.identifier, for: indexPath) as? HourlyForecastTableViewCell else { return UITableViewCell() }
-            cell.backgroundColor = .red
+            
+            if let hourlyForecastInfo {
+                cell.configureElements(model: hourlyForecastInfo)
+            }
+            
             return cell
         case Sections.infoCard.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AdditionalInfoCardTableViewCell.identifier, for: indexPath) as? AdditionalInfoCardTableViewCell else { return UITableViewCell() }
-            cell.backgroundColor = .red
+            
+            if let hourlyForecastInfo {
+                cell.setupCell(city: hourlyForecastInfo)
+            }
+            
             return cell
         default:
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -131,7 +154,7 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
         case Sections.hourlyForecast.rawValue:
             return 150
         case Sections.infoCard.rawValue:
-            return 125
+            return 100
         default:
             return 100
         }

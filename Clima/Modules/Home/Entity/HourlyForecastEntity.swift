@@ -31,11 +31,20 @@ struct List: Codable {
     let dt: Int?
     let main: Main?
     let weather: [Weather]?
+    let wind: Wind?
     let dtTxt: String?
+    let visibility: Int?
 
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather
+        case dt, main, weather, wind, visibility
         case dtTxt = "dt_txt"
     }
+}
+
+// MARK: - Wind
+struct Wind: Codable {
+    let speed: Double?
+    let deg: Int?
+    let gust: Double?
 }
 

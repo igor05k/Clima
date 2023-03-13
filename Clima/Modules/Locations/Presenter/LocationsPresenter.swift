@@ -17,7 +17,7 @@ protocol AnyLocationsPresenter {
     
     func fetchData()
     
-    func didTapCityDetails()
+    func didTapCityDetails(city: CityInfo)
 }
 
 class LocationsPresenter: AnyLocationsPresenter {
@@ -47,7 +47,7 @@ class LocationsPresenter: AnyLocationsPresenter {
         interactor.retrieveValues()
     }
     
-    func didTapCityDetails() {
-        router.goToDetails()
+    func didTapCityDetails(city: CityInfo) {
+        router.goToDetails(city: city)
     }
 }
