@@ -31,16 +31,21 @@ enum GMapsAPIConstants: String {
 protocol AnyAddNewLocationInteractor {
     var presenter: AnyAddNewLocationPresenter? { get set }
     func getAutocompleteResults(for searchTerm: String)
-    func fetchWeatherForecast(for city: String)
+    func getCoordinates(for city: String)
+}
+
+enum GeocodingAPIConfig: String {
+    case base_URL = "https://maps.googleapis.com/maps/api/geocode/json?address="
+    case api_key = "AIzaSyD3vEKNHYWR11ulJD5302X7WDXufBKyrOU"
 }
 
 class AddNewLocationInteractor: AnyAddNewLocationInteractor {
     var presenter: AnyAddNewLocationPresenter?
     
-    func fetchWeatherForecast(for city: String) {
-        guard let cityTrimmed = city.components(separatedBy: ",").first?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-
-        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?q=\(cityTrimmed)" + "&cnt=8&appid=" + APIConfig.api_key.rawValue
+    func getCoordinates(for city: String) {
+        guard let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        
+        let urlString = GeocodingAPIConfig.base_URL.rawValue + cityEncoded + "&key=" + GeocodingAPIConfig.api_key.rawValue
 
         guard let url = URL(string: urlString) else { return }
 
@@ -48,10 +53,37 @@ class AddNewLocationInteractor: AnyAddNewLocationInteractor {
             guard let data, error == nil else { return }
 
             do {
-                let json = try JSONDecoder().decode(HourlyForecastEntity.self, from: data)
-                self?.presenter?.didFetchWeatherForecast(for: .success(json))
+                let json = try JSONDecoder().decode(Geocoding.self, from: data)
+                if let lat = json.results?[0].geometry?.location?.lat,
+                   let lon = json.results?[0].geometry?.location?.lng {
+                    self?.fetchWeatherForecast(using: lat, lon: lon) { result in
+                        switch result {
+                        case .success(let success):
+                            self?.presenter?.didFetchWeatherForecast(for: .success(success))
+                        case .failure(let failure):
+                            self?.presenter?.didFetchWeatherForecast(for: .failure(failure))
+                        }
+                    }
+                }
             } catch {
-                self?.presenter?.didFetchWeatherForecast(for: .failure(error))
+                print(error)
+            }
+        }.resume()
+    }
+    
+    private func fetchWeatherForecast(using lat: Double, lon: Double, completion: @escaping (Result<HourlyForecastEntity, Error>) -> Void) {
+        let urlString = APIConfig.base_URL.rawValue + Endpoints.forecast.rawValue + "?lat=\(lat)" + "&cnt=8&lon=\(lon)&appid=" + APIConfig.api_key.rawValue
+
+        guard let url = URL(string: urlString) else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data, error == nil {
+                do {
+                    let json = try JSONDecoder().decode(HourlyForecastEntity.self, from: data)
+                    completion(.success(json))
+                } catch {
+                    completion(.failure(error))
+                }
             }
         }.resume()
     }

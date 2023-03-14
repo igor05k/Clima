@@ -55,6 +55,6 @@ class AddNewLocationPresenter: AnyAddNewLocationPresenter {
     }
     
     func fetchWeatherData(for city: String) {
-        interactor.fetchWeatherForecast(for: city)
+        interactor.getCoordinates(for: city)
     }
 }

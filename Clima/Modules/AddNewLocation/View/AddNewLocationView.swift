@@ -20,8 +20,11 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
     
     lazy var searchBarController: UISearchController = {
         let searchBarItem = UISearchController(searchResultsController: SearchResultsViewController())
-        searchBarItem.searchBar.placeholder = "Search for a city..."
         searchBarItem.searchBar.searchBarStyle = .minimal
+        
+        let placeholderAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        let attributedPlaceholder = NSAttributedString(string: "Search for a city...", attributes: placeholderAttributes)
+        searchBarItem.searchBar.searchTextField.attributedPlaceholder = attributedPlaceholder
         return searchBarItem
     }()
     
@@ -33,6 +36,7 @@ class AddNewLocationView: UIViewController, AnyAddNewLocationView {
         navigationItem.searchController = searchBarController
         
         searchBarController.searchResultsUpdater = self
+        searchBarController.searchBar.searchTextField.textColor = .labelColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

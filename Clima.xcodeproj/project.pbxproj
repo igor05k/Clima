@@ -12,6 +12,8 @@
 		82039C6329B7B1C700383EFF /* LocationsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82039C6229B7B1C700383EFF /* LocationsRouter.swift */; };
 		8209EC3A29B8CF4B0008420B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */; };
 		8209EC3D29B8DE7A0008420B /* AddNewLocationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209EC3C29B8DE7A0008420B /* AddNewLocationBuilder.swift */; };
+		820CB06029C0E7040000B06A /* Geocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820CB05F29C0E7040000B06A /* Geocoding.swift */; };
+		820CB06229C0E9630000B06A /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820CB06129C0E9630000B06A /* UINavigationBar+.swift */; };
 		8216A85029B1331000753815 /* AddNewLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A84F29B1331000753815 /* AddNewLocationView.swift */; };
 		8216A85229B1332500753815 /* AddNewLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85129B1332500753815 /* AddNewLocationInteractor.swift */; };
 		8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8216A85329B1333000753815 /* AddNewLocationPresenter.swift */; };
@@ -70,6 +72,8 @@
 		82039C6229B7B1C700383EFF /* LocationsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsRouter.swift; sourceTree = "<group>"; };
 		8209EC3929B8CF4B0008420B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8209EC3C29B8DE7A0008420B /* AddNewLocationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationBuilder.swift; sourceTree = "<group>"; };
+		820CB05F29C0E7040000B06A /* Geocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoding.swift; sourceTree = "<group>"; };
+		820CB06129C0E9630000B06A /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
 		8216A84F29B1331000753815 /* AddNewLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationView.swift; sourceTree = "<group>"; };
 		8216A85129B1332500753815 /* AddNewLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationInteractor.swift; sourceTree = "<group>"; };
 		8216A85329B1333000753815 /* AddNewLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLocationPresenter.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				8216A85529B1334E00753815 /* AddNewLocationPresenterEntity.swift */,
+				820CB05F29C0E7040000B06A /* Geocoding.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 				82ACEEC729BFAE42005732A7 /* Int+.swift */,
 				8242A29129AA488B000CF4F8 /* UIColor+.swift */,
 				8242A28F29AA43C0000CF4F8 /* UIImageView+.swift */,
+				820CB06129C0E9630000B06A /* UINavigationBar+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -750,10 +756,12 @@
 				826B5E9929BB85CD009EBF01 /* CityInfo.swift in Sources */,
 				822F679729B7AFB50078704C /* LocationsInteractor.swift in Sources */,
 				826B5E8129BB5DE4009EBF01 /* WeatherUtils.swift in Sources */,
+				820CB06229C0E9630000B06A /* UINavigationBar+.swift in Sources */,
 				826B5E9D29BB9A72009EBF01 /* CityTableViewCell.swift in Sources */,
 				82AE2C5529A83504005FC00A /* CurrentWeatherEntity.swift in Sources */,
 				8216A85829B1335D00753815 /* AddNewLocationRouter.swift in Sources */,
 				8216A85429B1333000753815 /* AddNewLocationPresenter.swift in Sources */,
+				820CB06029C0E7040000B06A /* Geocoding.swift in Sources */,
 				822F679529B7AF520078704C /* LocationsView.swift in Sources */,
 				8242A2A529AAC4AF000CF4F8 /* DaysOfTheWeekTableViewCell.swift in Sources */,
 				82ACEEBB29BF6BC2005732A7 /* WeatherDetailsPresenter.swift in Sources */,

@@ -18,7 +18,6 @@ enum Sections: Int {
     case hourlyForecast = 1
     case infoCard = 2
     case rainProbability = 3
-    case airPollution = 4
 }
 
 class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
@@ -33,13 +32,6 @@ class WeatherDetailsView: UIViewController, AnyWeatherDetailsView {
         view.backgroundColor = .backgroundColor
         configTableView()
         configTableViewConstraints()
-        
-        let appearance = UINavigationBarAppearance(idiom: .phone)
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.backgroundColor = .backgroundColor
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
     }
     
     lazy var cityLabel: UILabel = {
@@ -183,22 +175,26 @@ extension WeatherDetailsView: UITableViewDelegate, UITableViewDataSource {
         case Sections.rainProbability.rawValue:
             return 300
         default:
-            return 100
+            return 250
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.frame = header.bounds
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case Sections.rainProbability.rawValue:
             return "Rain Probability"
-        case Sections.airPollution.rawValue:
-            return "Air Pollution"
         default:
             return nil
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
 }

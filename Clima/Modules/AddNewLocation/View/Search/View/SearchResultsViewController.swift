@@ -51,9 +51,14 @@ class SearchResultsViewController: UIViewController {
 extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
         cell.selectionStyle = .none
+        cell.backgroundColor = .backgroundCell
+        
+        // config cell element
         var config = cell.defaultContentConfiguration()
         config.text = predictions[indexPath.row].description ?? ""
+        config.textProperties.color = .labelColor
         cell.contentConfiguration = config
         
         return cell

@@ -63,9 +63,9 @@ extension HourlyForecastTableViewCell: UICollectionViewDelegate, UICollectionVie
         
         let hour = hourlyForecastInfo?.list?[indexPath.row].dtTxt ?? "No time"
         let icon = hourlyForecastInfo?.list?[indexPath.row].weather?[0].icon ?? ""
-        let temp = kelvinToCelsius(hourlyForecastInfo?.list?[indexPath.row].main?.temp ?? 0)
+        let temp = Int(kelvinToCelsius(hourlyForecastInfo?.list?[indexPath.row].main?.temp ?? 0))
 
-        let formattedTemp = String(temp).prefix(1) + "°"
+        let formattedTemp = String(temp).prefix(2) + "°"
 
         if let convertedHour = convertToAmPm(hour) {
             cell.setupCell(label: convertedHour, icon: icon, tempLabel: String(formattedTemp))

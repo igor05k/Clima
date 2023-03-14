@@ -26,13 +26,6 @@ class LocationsView: UIViewController, AnyLocationsView {
         title = "Locations"
         
         configTableView()
-        
-        let appearance = UINavigationBarAppearance(idiom: .phone)
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.backgroundColor = .backgroundColor
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
     }
     
     override func viewWillAppear(_ animated: Bool) {

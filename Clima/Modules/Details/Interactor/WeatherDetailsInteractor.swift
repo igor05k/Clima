@@ -16,7 +16,6 @@ protocol AnyWeatherDetailsInteractor: AnyObject {
 class WeatherDetailsInteractor: AnyWeatherDetailsInteractor {
     var presenter: AnyWeatherDetailsPresenter?
     
-    // se precisar importar o cllocations para poder usar o CLLocationDegrees como tipo do paramero
     func getHourlyForecast(lat: Double, lon: Double) {
         let latToString = String(lat)
         let lonToString = String(lon)

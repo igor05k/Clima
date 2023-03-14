@@ -20,6 +20,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     lazy var tempLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "26°C"
+        lbl.textColor = .labelColor
         lbl.font = .systemFont(ofSize: 42, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -28,6 +29,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     lazy var cityLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Guarulhos"
+        lbl.textColor = .labelColor
         lbl.font = .systemFont(ofSize: 26, weight: .regular)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -46,6 +48,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     lazy var minTemperature: UILabel = {
         let minTemp = UILabel()
         minTemp.text = "20°"
+        minTemp.textColor = .labelColor
         minTemp.translatesAutoresizingMaskIntoConstraints = false
         return minTemp
     }()
@@ -53,6 +56,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     lazy var maxTemperature: UILabel = {
         let maxTemp = UILabel()
         maxTemp.text = "29°"
+        maxTemp.textColor = .labelColor
         maxTemp.translatesAutoresizingMaskIntoConstraints = false
         return maxTemp
     }()
@@ -60,6 +64,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
     lazy var tempDescriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Scattered rain"
+        lbl.textColor = .labelColor
         lbl.font = .systemFont(ofSize: 26, weight: .regular)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
