@@ -58,6 +58,7 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
         }
         
         let dayOfWeekFormatter = DateFormatter()
+        dayOfWeekFormatter.locale = Locale(identifier: "en_US")
         dayOfWeekFormatter.dateFormat = "EEEE"
         
         return dayOfWeekFormatter.string(from: date)

@@ -10,6 +10,7 @@ import UIKit
 protocol AnyHomeRouter: AnyObject {
     var view: HomeView? { get set }
     func goToAddNewLocation()
+    func goToDetails(data: CityInfo)
 }
 
 class HomeRouter: AnyHomeRouter {
@@ -31,5 +32,10 @@ class HomeRouter: AnyHomeRouter {
     func goToAddNewLocation() {
         let addNewLocation = AddNewLocation.build()
         view?.navigationController?.pushViewController(addNewLocation, animated: true)
+    }
+    
+    func goToDetails(data: CityInfo) {
+        let details = WeatherDetailsBuilder.build(city: data)
+        view?.navigationController?.pushViewController(details, animated: true)
     }
 }

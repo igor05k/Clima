@@ -20,13 +20,17 @@ extension HomeView {
         ])
     }
     
-    func configCityLbl() {
-        view.addSubview(cityName)
+    func configCityButtonStackView() {
+        view.addSubview(cityButtonStackView)
+        cityButtonStackView.addArrangedSubview(cityName)
+        cityButtonStackView.addArrangedSubview(detailsButton)
+        
+        detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            cityName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            cityName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            cityButtonStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            cityButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
+            cityButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100),
         ])
     }
     

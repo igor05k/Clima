@@ -19,6 +19,7 @@ protocol AnyHomePresenter: AnyObject {
     func didFetchUserCoordinates(lat: CLLocationDegrees, lon: CLLocationDegrees)
     
     func didTapAddNewLocation()
+    func didTapDetails(data: CityInfo)
     
     func kelvinToCelsius(_ k: Double) -> Double
 }
@@ -34,11 +35,15 @@ class HomePresenter: AnyHomePresenter {
         self.interactor = interactor
         self.router = router
         
-//        interactor.fetchUserLocation()
+        interactor.fetchUserLocation()
     }
     
     func didTapAddNewLocation() {
         router.goToAddNewLocation()
+    }
+    
+    func didTapDetails(data: CityInfo) {
+        router.goToDetails(data: data)
     }
     
     private func convertDateToDictWeekdays(dict: [String: (tempMin: Double, tempMax: Double, icon: String)]?) -> [String: String]? {
@@ -47,6 +52,7 @@ class HomePresenter: AnyHomePresenter {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let dayOfWeekFormatter = DateFormatter()
+        dayOfWeekFormatter.locale = Locale(identifier: "en_US")
         dayOfWeekFormatter.dateFormat = "EEEE"
         
         var weekdays: [String: String] = [:]

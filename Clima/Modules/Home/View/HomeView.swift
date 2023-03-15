@@ -36,14 +36,22 @@ class HomeView: UIViewController, AnyHomeView {
         view.backgroundColor = .backgroundColor
 
         configBarButtonItem()
-        configCityLbl()
+        configCityButtonStackView()
         configTempStackView()
         configTempDescription()
         configMinMaxStackView()
         configTableView()
         configTableViewConstraints()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     lazy var tableView: UITableView = {
@@ -58,6 +66,23 @@ class HomeView: UIViewController, AnyHomeView {
         configuration.image = UIImage(systemName: "plus")
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.configuration = configuration
+        return btn
+    }()
+    
+    lazy var cityButtonStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fillProportionally
+        return stack
+    }()
+    
+    lazy var detailsButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        btn.tintColor = .labelColor
+        btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
@@ -152,14 +177,27 @@ class HomeView: UIViewController, AnyHomeView {
         tableView.register(DaysOfTheWeekTableViewCell.nib(), forCellReuseIdentifier: DaysOfTheWeekTableViewCell.identifier)
     }
     
+    // MARK: Actions
     @objc func addButtonTapped() {
         presenter?.didTapAddNewLocation()
+    }
+    
+    @objc func didTapDetailsButton() {
+        if let name = weatherInfo?.name,
+           let temp = weatherInfo?.main?.temp,
+           let icon = weatherInfo?.weather?[0].icon,
+           let lat = weatherInfo?.coord?.lat,
+           let lon = weatherInfo?.coord?.lon {
+            let cityInfo = CityInfo(name: name, temp: Int(temp), icon: icon, lat: lat, lon: lon)
+            presenter?.didTapDetails(data: cityInfo)
+        }
+
     }
     
     func updateCurrentTemperature(with weatherInfo: CurrentWeatherEntity) {
         DispatchQueue.main.async { [weak self] in
             self?.weatherInfo = weatherInfo
-            
+
             let temp = self?.presenter?.kelvinToCelsius(weatherInfo.main?.temp ?? 0)
             
             let desc = weatherInfo.weather?[0].tempDescription?.capitalized
@@ -183,7 +221,12 @@ class HomeView: UIViewController, AnyHomeView {
                               keys: [String],
                               weekDays: [String: String]) {
         DispatchQueue.main.async { [weak self] in
+            let min = weatherInfo?[WeatherUtils.shared.currentDate]?.tempMin.kelvinToCelsius()
+            let max = weatherInfo?[WeatherUtils.shared.currentDate]?.tempMax.kelvinToCelsius()
+            
             self?.keys = keys
+            self?.maxTemperature.text = String(Int(ceil(max ?? 0))).prefix(2) + "°"
+            self?.minTemperature.text = String(Int(floor(min ?? 0))).prefix(2) + "°"
             self?.weekDays = weekDays
             self?.dictOfForecasts = weatherInfo
             self?.tableView.reloadData()
