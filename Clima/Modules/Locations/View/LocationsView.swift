@@ -11,13 +11,14 @@ protocol AnyLocationsView: AnyObject {
     var presenter: LocationsPresenter? { get set }
     
     func updateCities(with data: [CityInfo])
-    func updateTableView(id: Int)
+    func updateTableView(index: Int)
 }
 
 class LocationsView: UIViewController, AnyLocationsView {
     
     var presenter: LocationsPresenter?
     
+    private let refreshControl = UIRefreshControl()
     private var cities: [CityInfo] = [CityInfo]()
     
     override func viewDidLoad() {
@@ -25,6 +26,7 @@ class LocationsView: UIViewController, AnyLocationsView {
         view.backgroundColor = .backgroundColor
         title = "Locations"
         
+        configRefreshControl()
         configTableView()
     }
     
@@ -45,11 +47,13 @@ class LocationsView: UIViewController, AnyLocationsView {
         tableView.frame = view.bounds
     }
     
-    func configTableView() {
+    private func configTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .backgroundColor
+        tableView.refreshControl = refreshControl
+
         // register cell
         tableView.register(CityTableViewCell.nib(), forCellReuseIdentifier: CityTableViewCell.identifier)
     }
@@ -62,10 +66,21 @@ class LocationsView: UIViewController, AnyLocationsView {
         }
     }
     
-    func updateTableView(id: Int) {
-        cities.remove(at: id)
+    func updateTableView(index: Int) {
+        cities.remove(at: index)
         tableView.reloadData()
     }
+    
+    private func configRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = .white
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        presenter?.updateData(cities: cities)
+        refreshControl.endRefreshing()
+    }
+
 }
 
 extension LocationsView: UITableViewDelegate, UITableViewDataSource {

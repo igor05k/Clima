@@ -14,9 +14,9 @@ protocol AnyLocationsPresenter {
     
     func didFetchCities(data: [CityInfo])
     func didDeleteItem(id: Int)
+    func didUpdateData() 
     
     func fetchData()
-    
     func didTapCityDetails(city: CityInfo)
 }
 
@@ -36,7 +36,11 @@ class LocationsPresenter: AnyLocationsPresenter {
     }
     
     func didDeleteItem(id: Int) {
-        view?.updateTableView(id: id)
+        view?.updateTableView(index: id)
+    }
+    
+    func didUpdateData() {
+        fetchData()
     }
     
     func delete(item: CityInfo, id: Int) {
@@ -45,6 +49,10 @@ class LocationsPresenter: AnyLocationsPresenter {
     
     func fetchData() {
         interactor.retrieveValues()
+    }
+    
+    func updateData(cities: [CityInfo]) {
+        interactor.updateData(cities: cities)
     }
     
     func didTapCityDetails(city: CityInfo) {

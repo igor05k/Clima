@@ -11,6 +11,7 @@ import Foundation
 struct CurrentWeatherEntity: Codable {
     let base: String?
     let cod: Int?
+    let coord: Coord?
     let dt, id: Int?
     let main: Main?
     let name: String?
