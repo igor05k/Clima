@@ -141,28 +141,3 @@ class LocationsInteractor: AnyLocationsInteractor {
         }
     }
 }
-
-
-/*
- // save into core data
- if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
- let context = appDelegate.persistentContainer.viewContext
- 
- guard let entity = NSEntityDescription.entity(forEntityName: "CityEntity", in: context) else { return } // no entity found
- let object = NSManagedObject(entity: entity, insertInto: context)
- 
- object.setValue(object.name, forKey: "name")
- object.setValue(object.temp, forKey: "temperature")
- object.setValue(object.icon, forKey: "icon")
- object.setValue(object.lat, forKey: "lat")
- object.setValue(object.lon, forKey: "lon")
- 
- do {
- try context.save()
- 
- } catch {
- // error handling
- print("error while trying to save data into coredata", error)
- }
- }
- */

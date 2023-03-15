@@ -129,10 +129,7 @@ class PreviewWeatherViewController: UIViewController, AnyPreviewWeatherView {
         cityLabel.text = cityName
         tempLabel.text = String(currentTemp).prefix(2) + "°C"
         tempDescriptionLabel.text = descriptionTemp.capitalized
-        
-        if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
-            temperatureIcon.downloadImage(from: url)
-        }
+        temperatureIcon.loadImageUsingCache(withUrl: "http://openweathermap.org/img/w/\(icon).png")
     }
     
     @objc func saveCity() {

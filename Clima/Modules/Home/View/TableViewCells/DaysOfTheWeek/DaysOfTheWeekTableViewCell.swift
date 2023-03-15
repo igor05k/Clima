@@ -67,9 +67,6 @@ class DaysOfTheWeekTableViewCell: UITableViewCell {
         dayOfTheWeekLbl.text = weekDay.capitalized
         minTempLbl.text = String(tempMin) + "°"
         maxTempLbl.text = String(tempMax) + "°"
-        
-        if let url = URL(string: "http://openweathermap.org/img/w/\(icon).png") {
-            weatherIconImageView.downloadImage(from: url)
-        }
+        weatherIconImageView.loadImageUsingCache(withUrl: "http://openweathermap.org/img/w/\(icon).png")
     }
 }

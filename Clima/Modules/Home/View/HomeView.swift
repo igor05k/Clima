@@ -164,10 +164,7 @@ class HomeView: UIViewController, AnyHomeView {
             
             let desc = weatherInfo.weather?[0].tempDescription?.capitalized
             let icon = weatherInfo.weather?[0].icon
-            
-            if let url = URL(string: "http://openweathermap.org/img/w/\(icon ?? "").png") {
-                self?.temperatureIcon.downloadImage(from: url)
-            }
+            self?.temperatureIcon.loadImageUsingCache(withUrl: "http://openweathermap.org/img/w/\(icon ?? "").png")
             
             self?.tempDescription.text = desc ?? "No description"
             self?.cityName.text = weatherInfo.name ?? "No city found"

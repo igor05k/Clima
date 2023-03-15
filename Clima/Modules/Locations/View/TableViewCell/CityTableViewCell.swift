@@ -42,9 +42,6 @@ class CityTableViewCell: UITableViewCell {
     func setupCell(data: CityInfo) {
         cityTemp.text = String(data.temp) + "°C"
         cityName.text = data.name
-        
-        if let url = URL(string: "http://openweathermap.org/img/w/\(data.icon).png") {
-            tempIcon.downloadImage(from: url)
-        }
+        tempIcon.loadImageUsingCache(withUrl: "http://openweathermap.org/img/w/\(data.icon).png")
     }
 }
